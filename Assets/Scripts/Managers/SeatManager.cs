@@ -17,6 +17,7 @@ public class SeatManager : MonoBehaviour
     private void Awake()
     {
         SingletonCheck();
+
         SetupVariables();
 
         DebugVariables();
@@ -44,6 +45,7 @@ public class SeatManager : MonoBehaviour
             NumberFreeSeats--;
 
             Vector3 whereToSit = seat._sittingPoint.position;
+
             customer.GetComponent<Move>().MoveTo(new Vector2(whereToSit.x, whereToSit.y));
 
             return true;

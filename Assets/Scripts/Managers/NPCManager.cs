@@ -16,37 +16,72 @@ public class NPCManager : MonoBehaviour
     [Header("Test")]
     public GameObject NPC;
 
+    public static NPCManager Instance { get; private set; }
+
     //Internal Variables
     private List<GameObject> _unlockedNPCs;
     private int _totalNumberOfNPCs;
 
     private void Awake()
     {
+        SingletonCheck();
+
         InitializeUnlockedNPCsList();
 
         InitializeVariables();
 
     }
 
-    private void InitializeVariables()
+    private void DebugVariables()
     {
-        CustomersInsideRestaurant = new Queue<GameObject>(GameManager.Instance.MaxNumberOfNPC);
-        CustomersWaitingInLine = new Queue<GameObject>(SeatManager.Instance.NumberSeats);
+        Debug.Log("NPCManager variables: ");
+        Debug.Log("CustomersInsideRestaurant: " + CustomersInsideRestaurant.Count);
+        Debug.Log("CustomersWaitingInLine: " + CustomersWaitingInLine.Count);
+        Debug.Log("_totalNumberOfNPCs: " + _totalNumberOfNPCs);
     }
-
 
     // Start is called before the first frame update
     void Start()
     {
-        CreateCustomer(Vector3.zero);
+        //CreateCustomer(Vector3.zero);
+        //CreateCustomer(Vector3.zero);
 
-        SeatManager.Instance.Seat(CustomersWaitingInLine.Dequeue());
+        //try
+        //{
+        //    SeatManager.Instance.Seat(CustomersWaitingInLine.Dequeue());
+        //    SeatManager.Instance.Seat(CustomersWaitingInLine.Dequeue());
+        //    SeatManager.Instance.Seat(CustomersWaitingInLine.Dequeue());
+        //} catch (Exception ex) 
+        //{
+        //    Debug.LogException(ex);
+        //}
+
+        //DebugVariables();
+
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    private void SingletonCheck()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            Instance = this;
+        }
+    }
+
+    private void InitializeVariables()
+    {
+        CustomersInsideRestaurant = new Queue<GameObject>(GameManager.Instance.MaxNumberOfNPC);
+        CustomersWaitingInLine = new Queue<GameObject>(SeatManager.Instance.NumberSeats);
     }
 
     private void InitializeUnlockedNPCsList()
@@ -86,7 +121,8 @@ public class NPCManager : MonoBehaviour
         }
     }
 
-    public void CreateCustomer(Vector3 location)
+    //Returns a customer
+    public GameObject CreateCustomer(Vector3 location)
     {
         int totalOFAvailableNPCs = _unlockedNPCs.Count;
 
@@ -98,11 +134,32 @@ public class NPCManager : MonoBehaviour
             NPCControler customerController = customer.GetComponent<NPCControler>();
 
             customerController.waiting = true;
-            customerController.queuePosition = CustomersWaitingInLine.Count-1;
+            customerController.queuePosition = CustomersWaitingInLine.Count+1;
+
+            _totalNumberOfNPCs++;
 
             CustomersWaitingInLine.Enqueue(customer);
+
+            return customer;
+        } else
+        {
+            return null;
         }
     }
 
+    public void MoveNPC(GameObject npc, Vector3[] path)
+    {
+        if (path == null || npc == null) return;
 
+        NPCControler npcController = npc.GetComponent<NPCControler>();
+        Move moveScript = npc.GetComponent<Move>();
+
+        for (int pointsTravaled = 0; pointsTravaled < path.Length; pointsTravaled++)
+        {
+            if (!moveScript.moving)
+            {
+                moveScript.MoveTo(path[pointsTravaled]);
+            }
+        }
+    }
 }
