@@ -5,6 +5,12 @@ using static UnityEngine.InputSystem.InputAction;
 
 public class Test : MonoBehaviour
 {
+    private Queue<int> queue;
+
+    private void Awake()
+    {
+        queue = new Queue<int>();
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -14,6 +20,7 @@ public class Test : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
     }
 
     public void Position(CallbackContext cntx)

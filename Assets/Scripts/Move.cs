@@ -12,6 +12,7 @@ public class Move : MonoBehaviour
     private void Awake()
     {
         _transform = gameObject.GetComponent<Transform>();
+        _lastTargetLocation = transform.position;
     }
 
     // Start is called before the first frame update

@@ -7,12 +7,12 @@ using UnityEngine;
 public class NPCListScriptableObject : ScriptableObject
 {
     [Serializable]
-    public struct CustomersList
+    public class CustomerListData
     {
         public GameObject customerPrefrab;
         public bool unlocked;
     }
 
     [SerializeField]
-    public CustomersList[] customers;
+    public CustomerListData[] customers;
 }

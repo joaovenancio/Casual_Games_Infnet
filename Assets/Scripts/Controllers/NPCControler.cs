@@ -5,9 +5,9 @@ using UnityEngine;
 public class NPCControler : MonoBehaviour
 {
     [SerializeField]
-    private bool _waiting;
+    public bool waiting;
     [SerializeField]
-    private int _queuePosition; // First in the line is the number 0
+    public int queuePosition; // First in the line is the number 0
 
     private void Awake()
     {
