@@ -19,7 +19,7 @@ public class SeatManager : MonoBehaviour
         SingletonCheck();
         SetupVariables();
 
-        //DebugVariables();
+        DebugVariables();
     }
 
     private void SetupVariables()
@@ -69,9 +69,9 @@ public class SeatManager : MonoBehaviour
         return null;
     }
 
-    private void DebugVariables()
+    public void DebugVariables()
     {
-        throw new NotImplementedException();
+        Debug.Log("SeatManager: S - " + NumberSeats + "| F - " + NumberFreeSeats + "| O - " + NumberOccupiedSeats);
     }
 
     private void SingletonCheck()

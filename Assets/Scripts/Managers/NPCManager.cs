@@ -38,7 +38,9 @@ public class NPCManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        SeatManager.Instance.Seat(Instantiate(NPC));
+        CreateCustomer(Vector3.zero);
+
+        SeatManager.Instance.Seat(CustomersWaitingInLine.Dequeue());
     }
 
     // Update is called once per frame
@@ -99,9 +101,6 @@ public class NPCManager : MonoBehaviour
             customerController.queuePosition = CustomersWaitingInLine.Count-1;
 
             CustomersWaitingInLine.Enqueue(customer);
-            //customerController
-            //customersList.Add(customerController);
-
         }
     }
 
