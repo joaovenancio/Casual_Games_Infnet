@@ -19,31 +19,25 @@ public class Move : MonoBehaviour
 
     private void Awake()
     {
-        moving = false;
-        _transform = gameObject.GetComponent<Transform>();
-        _lastTargetLocation = transform.position;
-        if (_locationsToMove == null)
-        {
-            _locationsToMove = new Vector2[0];
-        }
+        SetupVariables();
 
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     private void FixedUpdate()
     {
         ProcessMovement();
+    }
+
+    private void SetupVariables()
+    {
+        moving = false;
+        _transform = gameObject.GetComponent<Transform>();
+        _lastTargetLocation = transform.position;
+
+        if (_locationsToMove == null)
+        {
+            _locationsToMove = new Vector2[0];
+        }
     }
 
     private void ProcessMovement()
@@ -67,12 +61,18 @@ public class Move : MonoBehaviour
                 }
                 else
                 {
-                    moving = false;
-                    _move = false;
-
+                    ResetVariables();
                 }
             }
         }
+    }
+
+    private void ResetVariables()
+    {
+        moving = false;
+        _move = false;
+        _hasMultipleLocations = false;
+        _locationsToMove = new Vector2[0];
     }
 
     public void MoveTo(Vector2 targetLocation)

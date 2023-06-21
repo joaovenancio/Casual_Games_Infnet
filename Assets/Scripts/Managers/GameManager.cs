@@ -30,6 +30,8 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         SpawnRandomCustomer();
+
+        SoundManager.Instance.Play("Soundtrack", true, null);
     }
 
     // Update is called once per frame
@@ -60,18 +62,13 @@ public class GameManager : MonoBehaviour
 
         Vector2[] path = TransformToVector2(_spawnPoints);
 
-
-        Debug.Log("GameManager: "); 
-        Debug.Log(path.Length); 
-
         customer.GetComponent<Move>().MoveTo(path);
-
 
         //SeatManager.Instance.Seat(npcManager.CustomersWaitingInLine.Dequeue());
     }
 
     public void DebugVariables()
     {
-
+        Debug.Log("GameManager: ");
     }
 }
