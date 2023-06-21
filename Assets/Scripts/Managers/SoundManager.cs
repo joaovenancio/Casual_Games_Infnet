@@ -27,18 +27,6 @@ public class SoundManager : MonoBehaviour
         _audioClipDictionary = new Dictionary<string, AudioClip>();
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        Play("soundtrack1-cooking", true, null);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     private void SingletonCheck()
     {
         if (Instance != null && Instance != this)
@@ -73,7 +61,7 @@ public class SoundManager : MonoBehaviour
 
                     } catch (Exception e)
                     {
-                        Debug.Log("Sound Manager: No Audio Source Detected. Initializing default AudioSource.");
+                        Debug.Log("Sound Manager: No Audio Source Detected. Initializing default AudioSource. " + e.Message);
 
                         targetAudioSource = target.AddComponent<AudioSource>();
                     }
@@ -91,7 +79,7 @@ public class SoundManager : MonoBehaviour
 
         } catch (Exception e)
         {
-            Debug.Log("SoundManager: No clip found with that name. Please check the clips list. " + e.Source);
+            Debug.Log("SoundManager: No clip found with that name. Please check the clips list. " + e.Message);
             
             return false;
         }
@@ -103,6 +91,8 @@ public class SoundManager : MonoBehaviour
     {
         public string AudioName;
         public AudioClip AudioClip;
+        [TextArea(1,5)]
+        public string AdditionalInfo;
     }
     
     private void LoadStructToDictionary()

@@ -1,11 +1,14 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
     [Header("Variables")]
     public int MaxNumberOfNPC;
+    public GameState GameState;
 
     [Header("References Setup")]
     [SerializeField] private Transform[] _spawnPoints;
@@ -31,7 +34,22 @@ public class GameManager : MonoBehaviour
     {
         SpawnRandomCustomer();
 
-        SoundManager.Instance.Play("Soundtrack", true, null);
+        SetupByScene();
+
+    }
+
+    private void SetupByScene()
+    {
+        switch(SceneManager.GetActiveScene().name)
+        {
+            case "MainMenu":
+                SoundManager.Instance.Play("soundtrack1", true, null);
+                break;
+
+            case "BaseScene":
+                SoundManager.Instance.Play("soundtrack2", true, null);
+                break;
+        }
     }
 
     // Update is called once per frame
@@ -70,5 +88,10 @@ public class GameManager : MonoBehaviour
     public void DebugVariables()
     {
         Debug.Log("GameManager: ");
+    }
+
+    public void LoadScene(string sceneName)
+    {
+        SceneManager.LoadScene(sceneName);
     }
 }
