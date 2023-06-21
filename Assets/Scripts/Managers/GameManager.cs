@@ -32,8 +32,6 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        SpawnRandomCustomer();
-
         SetupByScene();
 
     }
@@ -48,6 +46,8 @@ public class GameManager : MonoBehaviour
 
             case "BaseScene":
                 SoundManager.Instance.Play("soundtrack2", true, null);
+                SpawnRandomCustomer();
+
                 break;
         }
     }
@@ -93,5 +93,10 @@ public class GameManager : MonoBehaviour
     public void LoadScene(string sceneName)
     {
         SceneManager.LoadScene(sceneName);
+    }
+
+    public void QuitApplication()
+    {
+        Application.Quit();
     }
 }
