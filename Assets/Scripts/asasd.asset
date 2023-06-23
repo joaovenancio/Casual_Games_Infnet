@@ -15,3 +15,5 @@ MonoBehaviour:
   customers:
   - customerPrefrab: {fileID: 1205301653122505850, guid: a737a3765da2b7f43bbafe6bdddb687e, type: 3}
     unlocked: 1
+  - customerPrefrab: {fileID: 1205301653122505850, guid: a737a3765da2b7f43bbafe6bdddb687e, type: 3}
+    unlocked: 1

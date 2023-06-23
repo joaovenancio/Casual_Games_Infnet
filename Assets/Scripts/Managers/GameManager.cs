@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     [Header("Variables")]
-    public GameState GameState;
+    [SerializeField] private GameState _gameState;
     [SerializeField] private int _playerMoney;
 
     [Header("Setup")]
@@ -35,7 +35,6 @@ public class GameManager : MonoBehaviour
     {
         SetupByScene();
 
-        SpendMoney(2);
     }
 
     private void SetupByScene()
@@ -119,6 +118,17 @@ public class GameManager : MonoBehaviour
             Debug.LogError("Game Manager: Player doesn't have the required amount to finish the transaction.");
 
             return false;
+        }
+    }
+
+    private void Gameplay()
+    {
+        switch (_gameState)
+        {
+            case GameState.PLAYING:
+
+
+                break;
         }
     }
 

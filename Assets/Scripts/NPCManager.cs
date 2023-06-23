@@ -29,7 +29,6 @@ public class NPCManager : MonoBehaviour
         InitializeUnlockedNPCsList();
 
         InitializeVariables();
-
     }
 
     private void DebugVariables()
@@ -43,6 +42,9 @@ public class NPCManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        
+        
+
         //CreateCustomer(Vector3.zero);
         //CreateCustomer(Vector3.zero);
 
@@ -80,8 +82,8 @@ public class NPCManager : MonoBehaviour
 
     private void InitializeVariables()
     {
-        CustomersInsideRestaurant = new Queue<GameObject>(GameManager.Instance.MaxNumberOfNPC);
-        CustomersWaitingInLine = new Queue<GameObject>(SeatManager.Instance.NumberSeats);
+        CustomersInsideRestaurant = new Queue<GameObject>();
+        CustomersWaitingInLine = new Queue<GameObject>();
     }
 
     private void InitializeUnlockedNPCsList()
@@ -126,19 +128,21 @@ public class NPCManager : MonoBehaviour
     {
         int totalOFAvailableNPCs = _unlockedNPCs.Count;
 
+        Debug.Log(CustomersWaitingInLine == null);
+
         if (totalOFAvailableNPCs >= 1)
         {
+
             int randomNumber = UnityEngine.Random.Range(0, totalOFAvailableNPCs-1);
 
             GameObject customer = GameObject.Instantiate(_unlockedNPCs[randomNumber], location, Quaternion.identity);
             NPCControler customerController = customer.GetComponent<NPCControler>();
-
-            customerController.waiting = true;
+            
             customerController.queuePosition = CustomersWaitingInLine.Count+1;
 
             _totalNumberOfNPCs++;
 
-            CustomersWaitingInLine.Enqueue(customer);
+            Debug.Log(customer == null);
 
             return customer;
         } else

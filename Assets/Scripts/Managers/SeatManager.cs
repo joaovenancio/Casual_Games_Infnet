@@ -36,7 +36,6 @@ public class SeatManager : MonoBehaviour
         if (NumberFreeSeats > 0)
         {
             customer.GetComponent<NPCControler>().queuePosition = 0;
-            customer.GetComponent<NPCControler>().waiting = false;
 
             Seat seat = GetFreeSeat();
 
