@@ -7,8 +7,11 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     [Header("Variables")]
-    public int MaxNumberOfNPC;
     public GameState GameState;
+    [SerializeField] private int _playerMoney;
+
+    [Header("Setup")]
+    public int MaxNumberOfNPC;
 
     [Header("References Setup")]
     [SerializeField] private Transform[] _spawnPoints;
@@ -17,8 +20,6 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        // If there is an instance, and it's not me, delete myself.
-
         if (Instance != null && Instance != this)
         {
             Destroy(this);
@@ -34,6 +35,7 @@ public class GameManager : MonoBehaviour
     {
         SetupByScene();
 
+        SpendMoney(2);
     }
 
     private void SetupByScene()
@@ -100,4 +102,24 @@ public class GameManager : MonoBehaviour
         Application.Quit();
         UnityEditor.EditorApplication.isPlaying = false;
     }
+
+    public bool SpendMoney (int amount)
+    {
+        int moneyLeft = _playerMoney - amount;
+
+        if (moneyLeft >= 0)
+        {
+            _playerMoney = moneyLeft;
+
+            UIManager.Instance.UpdateText("Money", moneyLeft.ToString());
+
+            return true;
+        } else
+        {
+            Debug.LogError("Game Manager: Player doesn't have the required amount to finish the transaction.");
+
+            return false;
+        }
+    }
+
 }
