@@ -99,7 +99,10 @@ public class GameManager : MonoBehaviour
     public void QuitApplication()
     {
         Application.Quit();
+
+        #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
+        #endif
     }
 
     public bool SpendMoney (int amount)
@@ -132,4 +135,12 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void Money(int amount)
+    {
+        int moneyLeft = _playerMoney - amount;
+
+        _playerMoney = moneyLeft;
+
+        UIManager.Instance.UpdateText("Money", moneyLeft.ToString());
+    }
 }
