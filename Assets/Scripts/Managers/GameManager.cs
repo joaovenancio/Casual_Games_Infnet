@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -35,6 +36,13 @@ public class GameManager : MonoBehaviour
     {
         SetupByScene();
 
+        
+
+        //foreach (PropertyInfo pp in this.GetType().GetProperties())
+        //{
+        //    Debug.Log(pp.Name);
+        //}
+
     }
 
     private void SetupByScene()
@@ -44,9 +52,11 @@ public class GameManager : MonoBehaviour
             case "MainMenu":
                 SoundManager.Instance.Play("soundtrack1", true, null);
                 break;
-
+            
             case "BaseScene":
                 SoundManager.Instance.Play("soundtrack2", true, null);
+
+
                 SpawnRandomCustomer();
 
                 break;
@@ -74,14 +84,16 @@ public class GameManager : MonoBehaviour
     public void SpawnRandomCustomer ()
     {
         NPCManager npcManager = NPCManager.Instance;
-        int randomNumber = UnityEngine.Random.Range(0, _spawnPoints.Length-1);
+        int randomNumber = UnityEngine.Random.Range(0, _spawnPoints.Length);
 
-        //GameObject customer = npcManager.CreateCustomer(_spawnPoints[randomNumber].position);
-        GameObject customer = npcManager.CreateCustomer(Vector3.zero);
+        Debug.Log(_spawnPoints.Length-1);
+
+        GameObject customer = npcManager.SpawnCustomer(_spawnPoints[randomNumber].position);
+        //GameObject customer = npcManager.CreateCustomer(Vector3.zero);
 
         Vector2[] path = TransformToVector2(_spawnPoints);
 
-        customer.GetComponent<Move>().MoveTo(path);
+        npcManager.MoveNPC(customer, path);
 
         //SeatManager.Instance.Seat(npcManager.CustomersWaitingInLine.Dequeue());
     }
@@ -135,12 +147,4 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void Money(int amount)
-    {
-        int moneyLeft = _playerMoney - amount;
-
-        _playerMoney = moneyLeft;
-
-        UIManager.Instance.UpdateText("Money", moneyLeft.ToString());
-    }
 }

@@ -7,8 +7,11 @@ using static NPCListScriptableObject;
 public class NPCManager : MonoBehaviour
 {
     [Header("Variables")]
-    [SerializeField] public Queue<GameObject> CustomersInsideRestaurant;
+    [SerializeField] public List<GameObject> Customers;
     [SerializeField] public Queue<GameObject> CustomersWaitingInLine;
+
+    [Header("Setup")]
+    [SerializeField] private GameObject _customersContainer;
 
     [Header("Data setup")]
     [SerializeField] private NPCListScriptableObject _NPCListData;
@@ -20,7 +23,6 @@ public class NPCManager : MonoBehaviour
 
     //Internal Variables
     private List<GameObject> _unlockedNPCs;
-    private int _totalNumberOfNPCs;
 
     private void Awake()
     {
@@ -34,9 +36,8 @@ public class NPCManager : MonoBehaviour
     private void DebugVariables()
     {
         Debug.Log("NPCManager variables: ");
-        Debug.Log("CustomersInsideRestaurant: " + CustomersInsideRestaurant.Count);
+        Debug.Log("Customers: " + Customers.Count);
         Debug.Log("CustomersWaitingInLine: " + CustomersWaitingInLine.Count);
-        Debug.Log("_totalNumberOfNPCs: " + _totalNumberOfNPCs);
     }
 
     // Start is called before the first frame update
@@ -82,7 +83,7 @@ public class NPCManager : MonoBehaviour
 
     private void InitializeVariables()
     {
-        CustomersInsideRestaurant = new Queue<GameObject>();
+        Customers = new List<GameObject>();
         CustomersWaitingInLine = new Queue<GameObject>();
     }
 
@@ -124,7 +125,7 @@ public class NPCManager : MonoBehaviour
     }
 
     //Returns a customer
-    public GameObject CreateCustomer(Vector3 location)
+    public GameObject SpawnCustomer(Vector3 location)
     {
         int totalOFAvailableNPCs = _unlockedNPCs.Count;
 
@@ -136,13 +137,11 @@ public class NPCManager : MonoBehaviour
             int randomNumber = UnityEngine.Random.Range(0, totalOFAvailableNPCs-1);
 
             GameObject customer = GameObject.Instantiate(_unlockedNPCs[randomNumber], location, Quaternion.identity);
+            if (_customersContainer != null)
+                customer.transform.SetParent(_customersContainer.transform, true);
             NPCControler customerController = customer.GetComponent<NPCControler>();
-            
-            customerController.queuePosition = CustomersWaitingInLine.Count+1;
 
-            _totalNumberOfNPCs++;
-
-            Debug.Log(customer == null);
+            Customers.Add(customer);
 
             return customer;
         } else
@@ -151,19 +150,22 @@ public class NPCManager : MonoBehaviour
         }
     }
 
-    public void MoveNPC(GameObject npc, Vector3[] path)
+    public void MoveNPC(GameObject npc, Vector2[] path)
     {
         if (path == null || npc == null) return;
 
-        NPCControler npcController = npc.GetComponent<NPCControler>();
         Move moveScript = npc.GetComponent<Move>();
 
-        for (int pointsTravaled = 0; pointsTravaled < path.Length; pointsTravaled++)
-        {
-            if (!moveScript.moving)
-            {
-                moveScript.MoveTo(path[pointsTravaled]);
-            }
-        }
+        moveScript.MoveTo(path);
     }
+
+    public void MoveNPC(GameObject npc, Vector2 path)
+    {
+        if (path == null || npc == null) return;
+
+        Move moveScript = npc.GetComponent<Move>();
+
+        moveScript.MoveTo(path);
+    }
+
 }
