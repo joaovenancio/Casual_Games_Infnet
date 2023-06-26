@@ -8,107 +8,165 @@ using UnityEngine;
 
 public class Utils : MonoBehaviour
 {
-    public int testeDeInt = 4356723;
-    private int bagas = 32;
+    private static string[] PREFIXES_TO_IGNORE = { "" , " ", "   ", null};
 
-    private void Start()
+    #pragma warning disable CS0168
+    public static void DebugVariables(object obj)
     {
-        //Move move = new Move();
+        if (obj == null)
+            return;
 
-        //DebugScript<Utils>(this, true);
-
-        int vari = 123213;
-        int kakakaka = 01202190321;
-
-
-        object[] objs = { vari, kakakaka };
-
-        //DebugVariables(new object[] { }, this);
-
-        DebugVariables("testeDeInt", this);
+        UnityEngine.Debug.Log(obj.ToString());
     }
 
-
-    public void DebugVariables<T>(object[] objectList, T script)
+    public static void DebugVariables(object[] objectList)
     {
-
+        if (objectList == null)
+            return;
 
         foreach (object obj in objectList)
         {
-            obj.ToString();
+            if (obj == null)
+                continue;
 
-            //UnityEngine.Debug.Log(obj.GetType().DisplayName());
-
-            UnityEngine.Debug.Log(obj.ToString());
+            UnityEngine.Debug.Log(obj);
         }
     }
 
-    public void DebugVariables<T>(string name, T objectToDebug)
+    public static void DebugVariables(object[] objectList, string[] prefixText)
     {
+        if (objectList == null ||
+            prefixText == null)
+            return;
 
-        PropertyInfo[] properties = objectToDebug.GetType().GetProperties();
+        int prefixIterator = 0;
 
-        //UnityEngine.Debug.Log(objectToDebug.GetType().GetField("enabled") == null);
-
-        UnityEngine.Debug.Log(objectToDebug.GetType().GetField(name.ToString()).GetValue(objectToDebug));
-
-
-        //foreach (PropertyInfo prop in properties) { 
-        //    prop.
-        //}
-
-        //foreach (object obj in objectList)
-        //{
-        //    obj.ToString();
-
-        //    //UnityEngine.Debug.Log(obj.GetType().DisplayName());
-
-        //    UnityEngine.Debug.Log(obj.ToString());
-        //}
-    }
-
-    public void DebugScript<T>(T scriptToDebug, bool showMonobeheaviorProperties)
-    {
-        Type scriptType = scriptToDebug.GetType();
-        PropertyInfo[] properties = scriptType.GetProperties();
-
-        UnityEngine.Debug.Log(scriptType.Name + " - DEBUG:");
-
-        //MonoBehaviour monoObject;
-        //if (!showMonobeheaviorProperties)
-        //{
-        //    monoObject = new MonoBehaviour();
-        //}
-
-        foreach (PropertyInfo property in properties)
+        foreach (object obj in objectList)
         {
-
-            if (!showMonobeheaviorProperties)
+            if (obj == null)
             {
-                bool hasProperty = false;
-
-                foreach (PropertyInfo monoBeheavorProperty in 
-                    base.GetType().GetProperties())
-                {
-                    if (property.Equals(monoBeheavorProperty))
-                    {
-                        hasProperty = true;
-                        UnityEngine.Debug.Log("AAAAAAAAAAAAAAAAAAAA");
-                        break;
-                    }
-                }
-
-                if (hasProperty)
-                {
-                    continue;
-                }
+                prefixIterator++;
+                continue;
             }
 
-            UnityEngine.Debug.Log(property.Name + "-> ");
+            string textToLog = "";
+            string prefix;
 
+            try
+            {
+                prefix = prefixText[prefixIterator];
+            } catch (Exception e)
+            {
+                prefix = null;
+            }
+
+            if (!prefix.Equals(PREFIXES_TO_IGNORE) &&
+                prefix != null)
+            {
+                textToLog += prefix;
+            }
+
+            textToLog += obj.ToString();
+            prefixIterator++;
+
+            UnityEngine.Debug.Log(textToLog);
         }
-
-        UnityEngine.Debug.Log("-");
-        //typeof(T).GetProperties();
     }
+
+    public static void DebugVariables(object[] objectList, string[] prefixText, string firstText)
+    {
+        if (objectList == null ||
+            prefixText == null ||
+            firstText == null)
+            return;
+
+        UnityEngine.Debug.Log(firstText);
+
+        int prefixIterator = 0;
+
+        foreach (object obj in objectList)
+        {
+            if (obj == null)
+            {
+                prefixIterator++;
+                continue;
+            }
+
+            string textToLog = "";
+            string prefix;
+
+            try
+            {
+                prefix = prefixText[prefixIterator];
+            }
+            catch (Exception e)
+            {
+                prefix = null;
+            }
+
+            if (!prefix.Equals(PREFIXES_TO_IGNORE) &&
+                prefix != null)
+            {
+                textToLog += prefix;
+            }
+
+            textToLog += obj.ToString();
+            prefixIterator++;
+
+            UnityEngine.Debug.Log(textToLog);
+        }
+    }
+
+    public static void DebugVariables(string name, object objectToDebug)
+    {
+        if (name == null ||
+            objectToDebug == null)
+            return;
+
+        Type objectType = objectToDebug.GetType();
+
+        UnityEngine.Debug.Log(objectType.Name + ": ");
+
+        try
+        {
+            FieldInfo fieldInfo = objectType.GetField(name.ToString(), BindingFlags.NonPublic |
+                         BindingFlags.Instance | BindingFlags.Public | BindingFlags.Static);
+
+            UnityEngine.Debug.Log(name + "-> " +
+            fieldInfo.GetValue(objectToDebug));
+
+        } catch (Exception e)
+        {
+            return;
+        }
+    }
+
+    public static void DebugVariables(string[] names, object objectToDebug)
+    {
+        if (names == null ||
+            objectToDebug == null)
+            return;
+
+        Type objectType = objectToDebug.GetType();
+
+        UnityEngine.Debug.Log(objectType.Name + ": ");
+
+        foreach (string name in names)
+        {
+            try
+            {
+                FieldInfo fieldInfo = objectType.GetField(name.ToString(), BindingFlags.NonPublic |
+                         BindingFlags.Instance | BindingFlags.Public | BindingFlags.Static);
+
+                UnityEngine.Debug.Log(name + "-> " +
+                    fieldInfo.GetValue(objectToDebug));
+            }
+            catch (Exception e)
+            {
+                continue;
+            }
+        }
+    }
+    #pragma warning restore CS0168
+
 }
