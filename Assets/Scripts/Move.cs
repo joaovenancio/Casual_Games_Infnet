@@ -13,14 +13,11 @@ public class Move : MonoBehaviour
     private Vector2 _lastTargetLocation;
     private bool _move = false;
 
-    private bool _hasMultipleLocations = false;
-    private Vector2[] _locationsToMove; 
-    private int _currentLocation = 0;
+    private Queue<Vector2> _locationsToMove; 
 
     private void Awake()
     {
         SetupVariables();
-
     }
 
     private void FixedUpdate()
@@ -36,7 +33,7 @@ public class Move : MonoBehaviour
 
         if (_locationsToMove == null)
         {
-            _locationsToMove = new Vector2[0];
+            _locationsToMove = new Queue<Vector2>();
         }
     }
 
@@ -50,14 +47,13 @@ public class Move : MonoBehaviour
             {
                 moving = true;
                 _transform.position = Vector3.MoveTowards(transform.position, _lastTargetLocation, _translationSpeed);
+
             }
             else
             {
-                if (_hasMultipleLocations &&
-                    _currentLocation < _locationsToMove.Length)
+                if (_locationsToMove.Count > 0)
                 {
-                    _lastTargetLocation = _locationsToMove[_currentLocation];
-                    _currentLocation++;
+                    _lastTargetLocation = _locationsToMove.Dequeue();
                 }
                 else
                 {
@@ -71,24 +67,31 @@ public class Move : MonoBehaviour
     {
         moving = false;
         _move = false;
-        _hasMultipleLocations = false;
-        _locationsToMove = new Vector2[0];
     }
 
     public void MoveTo(Vector2 targetLocation)
     {
-        _lastTargetLocation = targetLocation;
+        if (_locationsToMove.Count > 0)
+            _locationsToMove.Enqueue(targetLocation);
+
         _move = true;
+
+        Debug.Log(targetLocation);
     }
 
     public void MoveTo(Vector2[] path)
     {
-        _currentLocation = 0;
-        _hasMultipleLocations = true;
-        _locationsToMove = path;
+        if (path == null)
+            return;
 
-        _lastTargetLocation = path[_currentLocation];
-        _currentLocation++;
+        foreach (Vector2 location in path)
+        {
+            if (location != null)
+                _locationsToMove.Enqueue(location);
+
+            Debug.Log(location);
+        }
+
         _move = true;
 
     }

@@ -66,18 +66,6 @@ public class GameManager : MonoBehaviour
         Gameplay();
     }
 
-    public Vector2[] TransformToVector2(Transform[] transforms)
-    {
-        Vector2[] vector2Array = new Vector2[transforms.Length];
-
-        for (int i = 0; i < transforms.Length; i++)
-        {
-            vector2Array[i] = new Vector2(transforms[i].transform.position.x, transforms[i].transform.position.y);
-        }
-        
-        return vector2Array;
-    }
-
     public GameObject SpawnRandomCustomer ()
     {
         NPCManager npcManager = NPCManager.Instance;
