@@ -9,6 +9,7 @@ public class NPCManager : MonoBehaviour
     [Header("Variables")]
     [SerializeField] public List<GameObject> Customers;
     [SerializeField] public Queue<GameObject> CustomersWaitingInLine;
+    private List<GameObject> _unlockedNPCs;
 
     [Header("Setup")]
     [SerializeField] private GameObject _customersContainer;
@@ -20,9 +21,6 @@ public class NPCManager : MonoBehaviour
     public GameObject NPC;
 
     public static NPCManager Instance { get; private set; }
-
-    //Internal Variables
-    private List<GameObject> _unlockedNPCs;
 
     private void Awake()
     {
@@ -44,22 +42,6 @@ public class NPCManager : MonoBehaviour
     void Start()
     {
         
-        
-
-        //CreateCustomer(Vector3.zero);
-        //CreateCustomer(Vector3.zero);
-
-        //try
-        //{
-        //    SeatManager.Instance.Seat(CustomersWaitingInLine.Dequeue());
-        //    SeatManager.Instance.Seat(CustomersWaitingInLine.Dequeue());
-        //    SeatManager.Instance.Seat(CustomersWaitingInLine.Dequeue());
-        //} catch (Exception ex) 
-        //{
-        //    Debug.LogException(ex);
-        //}
-
-        //DebugVariables();
 
     }
 

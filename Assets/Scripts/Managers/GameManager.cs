@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -36,13 +37,6 @@ public class GameManager : MonoBehaviour
     {
         SetupByScene();
 
-        
-
-        //foreach (PropertyInfo pp in this.GetType().GetProperties())
-        //{
-        //    Debug.Log(pp.Name);
-        //}
-
     }
 
     private void SetupByScene()
@@ -66,7 +60,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        Gameplay();
     }
 
     public Vector2[] TransformToVector2(Transform[] transforms)
@@ -86,14 +80,24 @@ public class GameManager : MonoBehaviour
         NPCManager npcManager = NPCManager.Instance;
         int randomNumber = UnityEngine.Random.Range(0, _spawnPoints.Length);
 
-        Debug.Log(_spawnPoints.Length-1);
-
         GameObject customer = npcManager.SpawnCustomer(_spawnPoints[randomNumber].position);
         //GameObject customer = npcManager.CreateCustomer(Vector3.zero);
 
-        Vector2[] path = TransformToVector2(_spawnPoints);
+        //Vector2[] path = TransformToVector2(_spawnPoints);
+        
+        //Debug.Log(_spawnPoints.AsEnumerable());
 
-        npcManager.MoveNPC(customer, path);
+        Vector2[] tes = Utils.Convert<Transform[], Vector2[]>(_spawnPoints) ;
+
+        Debug.Log(tes.Length);
+        Debug.Log(tes);
+        Debug.Log(tes[0]);
+
+        //Vector3[] points = _spawnPoints.Select(x => x.position).ToArray();
+
+        //Debug.Log(points.Length);
+
+        //npcManager.MoveNPC(customer, points);
 
         //SeatManager.Instance.Seat(npcManager.CustomersWaitingInLine.Dequeue());
     }
@@ -146,5 +150,6 @@ public class GameManager : MonoBehaviour
                 break;
         }
     }
+
 
 }
