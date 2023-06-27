@@ -36,7 +36,22 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         SetupByScene();
+    }
 
+    IEnumerator ExampleCoroutine(int time)
+    {
+        //Print the time of when the function is first called.
+        Debug.Log("Started Coroutine at timestamp : " + Time.time);
+
+        //yield on a new YieldInstruction that waits for 5 seconds.
+        yield return new WaitForSeconds(time);
+
+        GameObject t = NPCManager.Instance.RemoveFromQueue();
+        Debug.Log(t.GetInstanceID());
+        SeatManager.Instance.Seat(t);
+
+        //After we have waited 5 seconds print the time again.
+        Debug.Log("Finished Coroutine at timestamp : " + Time.time);
     }
 
     private void SetupByScene()
@@ -50,11 +65,29 @@ public class GameManager : MonoBehaviour
             case "BaseScene":
                 SoundManager.Instance.Play("soundtrack2", true, null);
 
+                GameObject g = SpawnRandomCustomer();
+                NPCManager.Instance.AddToQueue(g);
+
                 GameObject go = SpawnRandomCustomer();
                 NPCManager.Instance.AddToQueue(go);
 
-                GameObject gig = SpawnRandomCustomer();
-                NPCManager.Instance.AddToQueue(gig);
+                GameObject test = NPCManager.Instance.RemoveFromQueue();
+                Debug.Log(test.GetInstanceID());
+                SeatManager.Instance.Seat(test);
+
+                GameObject gosg = SpawnRandomCustomer();
+                NPCManager.Instance.AddToQueue(gosg);
+
+                StartCoroutine(ExampleCoroutine(6));
+
+
+
+                //NPCManager.Instance.AddToQueue(SpawnRandomCustomer());
+                //NPCManager.Instance.AddToQueue(SpawnRandomCustomer());
+                //SeatManager.Instance.Seat(NPCManager.Instance.RemoveFromQueue());
+
+                //GameObject gig = SpawnRandomCustomer();
+                //NPCManager.Instance.AddToQueue(gig);
 
                 break;
         }

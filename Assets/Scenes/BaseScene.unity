@@ -438,6 +438,8 @@ Transform:
   m_Children:
   - {fileID: 475616927}
   - {fileID: 559498438}
+  - {fileID: 1463633335}
+  - {fileID: 468445731}
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -632,6 +634,37 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &468445730
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 468445731}
+  m_Layer: 0
+  m_Name: Queue Spot (3)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &468445731
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 468445730}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.05, y: 7.11, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 311495683}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &475616926
 GameObject:
   m_ObjectHideFlags: 0
@@ -656,7 +689,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 475616926}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.03, y: 4.41, z: 0}
+  m_LocalPosition: {x: -0.03, y: 3.19, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -841,7 +874,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 559498437}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 3.08, z: 0}
+  m_LocalPosition: {x: 0, y: 4.53, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1415,6 +1448,37 @@ Transform:
   m_Father: {fileID: 404662877}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1463633334
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1463633335}
+  m_Layer: 0
+  m_Name: Queue Spot (2)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1463633335
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1463633334}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 5.65, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 311495683}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1480446381
 GameObject:
   m_ObjectHideFlags: 0
@@ -1684,7 +1748,7 @@ PrefabInstance:
       objectReference: {fileID: 458683107}
     - target: {fileID: 9142901777960313364, guid: 872ded48c9419844da0c85c15a8024e3, type: 3}
       propertyPath: _queueSpots.Array.size
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 9142901777960313364, guid: 872ded48c9419844da0c85c15a8024e3, type: 3}
       propertyPath: _queueSpots.Array.data[0]
@@ -1694,6 +1758,14 @@ PrefabInstance:
       propertyPath: _queueSpots.Array.data[1]
       value: 
       objectReference: {fileID: 559498438}
+    - target: {fileID: 9142901777960313364, guid: 872ded48c9419844da0c85c15a8024e3, type: 3}
+      propertyPath: _queueSpots.Array.data[2]
+      value: 
+      objectReference: {fileID: 1463633335}
+    - target: {fileID: 9142901777960313364, guid: 872ded48c9419844da0c85c15a8024e3, type: 3}
+      propertyPath: _queueSpots.Array.data[3]
+      value: 
+      objectReference: {fileID: 468445731}
     - target: {fileID: 9142901777960313364, guid: 872ded48c9419844da0c85c15a8024e3, type: 3}
       propertyPath: _pathToStartOfTheQueue.Array.size
       value: 2

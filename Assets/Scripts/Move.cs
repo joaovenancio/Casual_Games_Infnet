@@ -71,12 +71,11 @@ public class Move : MonoBehaviour
 
     public void MoveTo(Vector2 targetLocation)
     {
-        if (_locationsToMove.Count > 0)
-            _locationsToMove.Enqueue(targetLocation);
+        _locationsToMove.Enqueue(targetLocation);
 
         _move = true;
 
-        Debug.Log(targetLocation);
+        //Debug.Log(targetLocation);
     }
 
     public void MoveTo(Vector2[] path)
@@ -89,7 +88,7 @@ public class Move : MonoBehaviour
             if (location != null)
                 _locationsToMove.Enqueue(location);
 
-            Debug.Log(location);
+            //Debug.Log(location);
         }
 
         _move = true;

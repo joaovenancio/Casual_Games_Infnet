@@ -162,15 +162,52 @@ public class NPCManager : MonoBehaviour
             moveScript.MoveTo(pathToQueue);
         }
 
-        Utils.DebugVariables(new object[] { placeInQueue, npcController.QueuePosition, customer.name }, new string[] {"Count: ", "Place in queue: ", "Object Name: "});
+        //Utils.DebugVariables(new object[] { placeInQueue, npcController.QueuePosition, customer.name }, new string[] {"Count: ", "Place in queue: ", "Object Name: "});
+
+        Debug.Log(npcController.QueuePosition);
 
         UpdateQueue();
 
         return true;
     }
 
+    public GameObject RemoveFromQueue ()
+    {
+        LinkedListNode<GameObject> linkedNode = CustomersInQueue.First;
+        GameObject firstInLine = linkedNode.Value;
+
+        if (linkedNode == null ||
+            firstInLine == null)
+            return null;
+
+        linkedNode = linkedNode.Next;
+        int newPosition = 0;
+
+        while (linkedNode != null)
+        {
+            linkedNode.Value.GetComponent<NPCControler>().QueuePosition = newPosition;
+            linkedNode = linkedNode.Next;
+
+            Debug.Log("PASSEI");
+
+            newPosition++;
+        }
+
+        CustomersInQueue.RemoveFirst();
+
+        UpdateQueue();
+
+        return firstInLine;
+    }
+
+    private void UpdatePositionsInLine()
+    {
+        
+    }
+
     public void UpdateQueue ()
     {
+        Debug.Log(CustomersInQueue.First == null);
         if (CustomersInQueue.First == null)
             return;
 
@@ -193,10 +230,13 @@ public class NPCManager : MonoBehaviour
 
                 if (customerPositionInQueue+1 >= _queueSpots.Length)
                 {
+                    Debug.Log("LAST");
+
                     Vector2 spot = Utils.Convert<Transform, Vector2>(_queueSpots[_queueSpots.Length - 1]);
                     moveScript.MoveTo(spot);
                 } else
                 {
+                    Debug.Log("WIIIII "+ customerPositionInQueue);
                     Vector2 spot = Utils.Convert<Transform, Vector2>(_queueSpots[customerPositionInQueue]);
                     moveScript.MoveTo(spot);
                 }
