@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using static NPCListScriptableObject;
 
@@ -8,11 +9,13 @@ public class NPCManager : MonoBehaviour
 {
     [Header("Variables")]
     [SerializeField] public List<GameObject> Customers;
-    [SerializeField] public Queue<GameObject> CustomersWaitingInLine;
+    [SerializeField] public LinkedList<GameObject> CustomersInQueue;
     private List<GameObject> _unlockedNPCs;
 
     [Header("Setup")]
     [SerializeField] private GameObject _customersContainer;
+    [SerializeField] private Transform[] _pathToStartOfTheQueue;
+    [SerializeField] private Transform[] _queueSpots;
 
     [Header("Data setup")]
     [SerializeField] private NPCListScriptableObject _NPCListData;
@@ -35,7 +38,7 @@ public class NPCManager : MonoBehaviour
     {
         Debug.Log("NPCManager variables: ");
         Debug.Log("Customers: " + Customers.Count);
-        Debug.Log("CustomersWaitingInLine: " + CustomersWaitingInLine.Count);
+        Debug.Log("CustomersWaitingInLine: " + CustomersInQueue.Count);
     }
 
     // Start is called before the first frame update
@@ -66,7 +69,7 @@ public class NPCManager : MonoBehaviour
     private void InitializeVariables()
     {
         Customers = new List<GameObject>();
-        CustomersWaitingInLine = new Queue<GameObject>();
+        CustomersInQueue = new LinkedList<GameObject>();
     }
 
     private void InitializeUnlockedNPCsList()
@@ -111,7 +114,7 @@ public class NPCManager : MonoBehaviour
     {
         int totalOFAvailableNPCs = _unlockedNPCs.Count;
 
-        Debug.Log(CustomersWaitingInLine == null);
+        //Debug.Log(CustomersInQueue == null);
 
         if (totalOFAvailableNPCs >= 1)
         {
@@ -119,9 +122,11 @@ public class NPCManager : MonoBehaviour
             int randomNumber = UnityEngine.Random.Range(0, totalOFAvailableNPCs-1);
 
             GameObject customer = GameObject.Instantiate(_unlockedNPCs[randomNumber], location, Quaternion.identity);
+
             if (_customersContainer != null)
                 customer.transform.SetParent(_customersContainer.transform, true);
-            NPCControler customerController = customer.GetComponent<NPCControler>();
+
+            //NPCControler customerController = customer.GetComponent<NPCControler>();
 
             Customers.Add(customer);
 
@@ -131,6 +136,86 @@ public class NPCManager : MonoBehaviour
             return null;
         }
     }
+
+    public bool AddToQueue (GameObject customer)
+    {
+        NPCControler npcController = customer.GetComponent<NPCControler>();
+
+        if (npcController == null)
+            return false;
+
+        int placeInQueue = CustomersInQueue.Count;
+
+        npcController.QueuePosition = placeInQueue;
+        CustomersInQueue.AddLast(customer);
+
+        Move moveScript = customer.GetComponent<Move>();
+
+        Vector2[] pathToQueue = Utils.Convert<Transform[], Vector2[]>(_pathToStartOfTheQueue);
+        
+        if (pathToQueue == null || pathToQueue[0] == null)
+        {
+            Debug.Log("NPCManager -> AddToQueue: No pathToQueue.");
+            return false;
+        } else
+        {
+            moveScript.MoveTo(pathToQueue);
+        }
+
+        Utils.DebugVariables(new object[] { placeInQueue, npcController.QueuePosition, customer.name }, new string[] {"Count: ", "Place in queue: ", "Object Name: "});
+
+        UpdateQueue();
+
+        return true;
+    }
+
+    public void UpdateQueue ()
+    {
+        if (CustomersInQueue.First == null)
+            return;
+
+        if (_queueSpots == null || _queueSpots[0] == null)
+        {
+            Debug.Log("NPCManager -> AddToQueue: No _queueSpots.");
+            return;
+        }
+        else
+        {
+
+            LinkedListNode<GameObject> listNode = CustomersInQueue.First;
+
+            while (listNode != null)
+            {
+                GameObject customer = listNode.Value;
+
+                int customerPositionInQueue = customer.GetComponent<NPCControler>().QueuePosition;
+                Move moveScript = customer.GetComponent<Move>();
+
+                if (customerPositionInQueue+1 >= _queueSpots.Length)
+                {
+                    Vector2 spot = Utils.Convert<Transform, Vector2>(_queueSpots[_queueSpots.Length - 1]);
+                    moveScript.MoveTo(spot);
+                } else
+                {
+                    Vector2 spot = Utils.Convert<Transform, Vector2>(_queueSpots[customerPositionInQueue]);
+                    moveScript.MoveTo(spot);
+                }
+
+                listNode = listNode.Next;
+            }
+
+            
+        }
+    }
+
+    public bool SeatCustomer ()
+    {
+        
+        
+        return true;
+    }
+
+    
 
     public void MoveNPC(GameObject npc, Vector2[] path)
     {

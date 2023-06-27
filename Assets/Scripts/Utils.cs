@@ -203,8 +203,8 @@ public class Utils : MonoBehaviour
         Type inputType = typeof(T);
         Type targetType = typeof(U);
 
-        UnityEngine.Debug.Log((typeof(Vector3[])));
-        UnityEngine.Debug.Log(targetType.Equals(typeof(Vector3[])));
+        //UnityEngine.Debug.Log((typeof(Vector3[])));
+        //UnityEngine.Debug.Log(targetType.Equals(typeof(Vector3[])));
 
         if ((inputType.Equals(typeof(Transform)) || objectToConvert is Transform[]) &&
             (targetType.Equals(typeof(Vector2)) || targetType.Equals(typeof(Vector3))) )
@@ -275,6 +275,6 @@ public class Utils : MonoBehaviour
         }
 
         UnityEngine.Debug.Log("Utilities: Conversion not implemented.");
-        return default(U);
+        return default;
     }
 }

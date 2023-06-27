@@ -50,8 +50,11 @@ public class GameManager : MonoBehaviour
             case "BaseScene":
                 SoundManager.Instance.Play("soundtrack2", true, null);
 
+                GameObject go = SpawnRandomCustomer();
+                NPCManager.Instance.AddToQueue(go);
 
-                SpawnRandomCustomer();
+                GameObject gig = SpawnRandomCustomer();
+                NPCManager.Instance.AddToQueue(gig);
 
                 break;
         }
@@ -75,37 +78,15 @@ public class GameManager : MonoBehaviour
         return vector2Array;
     }
 
-    public void SpawnRandomCustomer ()
+    public GameObject SpawnRandomCustomer ()
     {
         NPCManager npcManager = NPCManager.Instance;
         int randomNumber = UnityEngine.Random.Range(0, _spawnPoints.Length);
 
-        GameObject customer = npcManager.SpawnCustomer(_spawnPoints[randomNumber].position);
-        //GameObject customer = npcManager.CreateCustomer(Vector3.zero);
-
-        //Vector2[] path = TransformToVector2(_spawnPoints);
-        
-        //Debug.Log(_spawnPoints.AsEnumerable());
-
-        Vector2[] tes = Utils.Convert<Transform[], Vector2[]>(_spawnPoints) ;
-
-        Debug.Log(tes.Length);
-        Debug.Log(tes);
-        Debug.Log(tes[0]);
-
-        //Vector3[] points = _spawnPoints.Select(x => x.position).ToArray();
-
-        //Debug.Log(points.Length);
-
-        //npcManager.MoveNPC(customer, points);
-
-        //SeatManager.Instance.Seat(npcManager.CustomersWaitingInLine.Dequeue());
+        return npcManager.SpawnCustomer(_spawnPoints[randomNumber].position);
     }
 
-    public void DebugVariables()
-    {
-        Debug.Log("GameManager: ");
-    }
+
 
     public void LoadScene(string sceneName)
     {

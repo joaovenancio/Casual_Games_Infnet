@@ -6,7 +6,7 @@ using UnityEngine;
 public class NPCControler : MonoBehaviour
 {
     [SerializeField] public NPCState state;
-    [SerializeField] public int queuePosition; // First in the line is the number 0
+    [SerializeField] public int QueuePosition; // First in the line is the number 0
     [SerializeField] private Move moveScript;
     [SerializeField] private bool _isNearSeat;
 
@@ -18,7 +18,7 @@ public class NPCControler : MonoBehaviour
     private void Update()
     {
         Act();
-        Debug.Log(moveScript.moving);
+        //Debug.Log(moveScript.moving);
     }
 
     private void Act()
