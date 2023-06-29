@@ -8,6 +8,7 @@ public class Move : MonoBehaviour
     [Header("Variables")]
     public bool moving;
     public float _translationSpeed;
+    [SerializeField] bool _instantMovement;
 
     private Transform _transform;
     private Vector2 _lastTargetLocation;
@@ -71,10 +72,17 @@ public class Move : MonoBehaviour
 
     public void MoveTo(Vector2 targetLocation)
     {
-        _locationsToMove.Enqueue(targetLocation);
+        if (_instantMovement)
+        {
+            _lastTargetLocation = targetLocation;
+
+        } else
+        {
+            _locationsToMove.Enqueue(targetLocation);
+
+        }
 
         _move = true;
-
         //Debug.Log(targetLocation);
     }
 
