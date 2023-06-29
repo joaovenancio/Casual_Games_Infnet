@@ -37,9 +37,9 @@ public class GameManager : MonoBehaviour
 
         List<FoodListScriptableObject.FoodListData> _foodList = Utils.Convert<FoodListScriptableObject.FoodListData[], List<FoodListScriptableObject.FoodListData>>(_foodData.Foods);
 
-        Debug.Log(_foodList.GetType());
-        Debug.Log(_foodList.Count);
-        Debug.Log(_foodList[0].foodPrefab.GetComponent<FoodController>().Name);
+        //Debug.Log(_foodList.GetType());
+        //Debug.Log(_foodList.Count);
+        //Debug.Log(_foodList[0].foodPrefab.GetComponent<FoodController>().Name);
     }
 
     // Start is called before the first frame update
@@ -51,7 +51,7 @@ public class GameManager : MonoBehaviour
     IEnumerator ExampleCoroutine(int time)
     {
         //Print the time of when the function is first called.
-        Debug.Log("Started Coroutine at timestamp : " + Time.time);
+        //Debug.Log("Started Coroutine at timestamp : " + Time.time);
 
         //yield on a new YieldInstruction that waits for 5 seconds.
         yield return new WaitForSeconds(time);
@@ -61,7 +61,7 @@ public class GameManager : MonoBehaviour
         SeatManager.Instance.Seat(t);
 
         //After we have waited 5 seconds print the time again.
-        Debug.Log("Finished Coroutine at timestamp : " + Time.time);
+        //Debug.Log("Finished Coroutine at timestamp : " + Time.time);
     }
 
     private void SetupByScene()
@@ -82,7 +82,7 @@ public class GameManager : MonoBehaviour
                 NPCManager.Instance.AddToQueue(go);
 
                 GameObject test = NPCManager.Instance.RemoveFromQueue();
-                Debug.Log(test.GetInstanceID());
+                //Debug.Log(test.GetInstanceID());
                 SeatManager.Instance.Seat(test);
 
                 GameObject gosg = SpawnRandomCustomer();

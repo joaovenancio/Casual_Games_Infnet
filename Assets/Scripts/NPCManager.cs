@@ -164,7 +164,7 @@ public class NPCManager : MonoBehaviour
 
         //Utils.DebugVariables(new object[] { placeInQueue, npcController.QueuePosition, customer.name }, new string[] {"Count: ", "Place in queue: ", "Object Name: "});
 
-        Debug.Log(npcController.QueuePosition);
+        //Debug.Log(npcController.QueuePosition);
 
         UpdateQueue();
 
@@ -188,7 +188,7 @@ public class NPCManager : MonoBehaviour
             linkedNode.Value.GetComponent<NPCControler>().QueuePosition = newPosition;
             linkedNode = linkedNode.Next;
 
-            Debug.Log("PASSEI");
+            //Debug.Log("PASSEI");
 
             newPosition++;
         }
@@ -207,7 +207,7 @@ public class NPCManager : MonoBehaviour
 
     public void UpdateQueue ()
     {
-        Debug.Log(CustomersInQueue.First == null);
+        //Debug.Log(CustomersInQueue.First == null);
         if (CustomersInQueue.First == null)
             return;
 
@@ -230,13 +230,13 @@ public class NPCManager : MonoBehaviour
 
                 if (customerPositionInQueue+1 >= _queueSpots.Length)
                 {
-                    Debug.Log("LAST");
+                    //Debug.Log("LAST");
 
                     Vector2 spot = Utils.Convert<Transform, Vector2>(_queueSpots[_queueSpots.Length - 1]);
                     moveScript.MoveTo(spot);
                 } else
                 {
-                    Debug.Log("WIIIII "+ customerPositionInQueue);
+                    //Debug.Log("WIIIII "+ customerPositionInQueue);
                     Vector2 spot = Utils.Convert<Transform, Vector2>(_queueSpots[customerPositionInQueue]);
                     moveScript.MoveTo(spot);
                 }
