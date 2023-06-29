@@ -7,12 +7,12 @@
             "actions": [
                 {
                     "name": "TouchedTheScreen",
-                    "type": "Button",
+                    "type": "Value",
                     "id": "3eb42db0-d8d0-4e22-ad7c-d3145f366074",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 },
                 {
                     "name": "TouchPosition",
@@ -22,13 +22,22 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "ss",
+                    "type": "Value",
+                    "id": "ce913798-4590-4fa2-9a75-8b4792793b6a",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
                 {
                     "name": "",
                     "id": "dcd6abf3-ab86-4bed-899f-7cb466b24547",
-                    "path": "<Touchscreen>/primaryTouch/press",
+                    "path": "<Touchscreen>/primaryTouch/startPosition",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -44,6 +53,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "TouchPosition",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d9bf9b03-5db2-44ee-a40e-923890eeeb4b",
+                    "path": "<Touchscreen>/primaryTouch/startPosition",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ss",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

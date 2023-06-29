@@ -25,7 +25,7 @@ public class PlayerController : MonoBehaviour
     }
 
     public void MovePlayer(CallbackContext context) {
-        Debug.Log("Position: " + Camera.main.ScreenToWorldPoint(context.ReadValue<Vector2>()));
+        //Debug.Log("Position: " + Camera.main.ScreenToWorldPoint(context.ReadValue<Vector2>()));
         _moveScript.MoveTo(_mainCamera.ScreenToWorldPoint(context.ReadValue<Vector2>()));
     }
 }
