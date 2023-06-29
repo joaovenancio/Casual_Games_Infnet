@@ -9,6 +9,7 @@ public class NPCControler : MonoBehaviour
     [SerializeField] public int QueuePosition; // First in the line is the number 0
     [SerializeField] private Move moveScript;
     [SerializeField] private bool _isNearSeat;
+    [SerializeField] private FoodController _foodToOrder;
 
     private void Awake()
     {
@@ -29,6 +30,9 @@ public class NPCControler : MonoBehaviour
         {
             state = NPCState.CHOSING_FOOD;
 
+        } else if (state == NPCState.CHOSING_FOOD)
+        {
+            NPCManager.Instance.RecieveAFoodToOrder();
         } else if (moveScript.moving)
         {
             state = NPCState.MOVING;

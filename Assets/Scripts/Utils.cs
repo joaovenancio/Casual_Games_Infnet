@@ -203,8 +203,6 @@ public class Utils : MonoBehaviour
         Type inputType = typeof(T);
         Type targetType = typeof(U);
 
-        //UnityEngine.Debug.Log((typeof(Vector3[])));
-        //UnityEngine.Debug.Log(targetType.Equals(typeof(Vector3[])));
 
         if ((inputType.Equals(typeof(Transform)) || objectToConvert is Transform[]) &&
             (targetType.Equals(typeof(Vector2)) || targetType.Equals(typeof(Vector3))) )
@@ -272,6 +270,33 @@ public class Utils : MonoBehaviour
                 return (U)System.Convert.ChangeType(vector2Array, targetType);
             }
 
+        } //Arrays to List<>
+        else if (typeof(List<>).MakeGenericType(inputType.GetElementType()).Equals(targetType) &&
+            inputType.IsArray)
+        {
+            if (objectToConvert == null)
+                return default(U);
+
+            System.Collections.IList result = (IList)typeof(List<>).MakeGenericType(inputType.GetElementType()).Instantiate();
+
+
+            Array array = objectToConvert as Array;
+
+            try
+            {
+                for (int i = 0; array.GetValue(i) != null; i++)
+                {
+                    result.Add(array.GetValue(i));
+                }
+
+                UnityEngine.Debug.Log(array.Length);
+            }
+            catch (Exception e) when (e is IndexOutOfRangeException) { }            
+             
+            
+            UnityEngine.Debug.Log(result.Count);
+
+            return (U)System.Convert.ChangeType(result, typeof(List<>).MakeGenericType(inputType.GetElementType()));
         }
 
         UnityEngine.Debug.Log("Utilities: Conversion not implemented.");

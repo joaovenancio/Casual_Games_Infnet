@@ -3,20 +3,24 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using static UnityEditor.FilePathAttribute;
 
 public class GameManager : MonoBehaviour
 {
     [Header("Variables")]
     [SerializeField] private GameState _gameState;
     [SerializeField] private int _playerMoney;
-
-    [Header("Setup")]
-    public int MaxNumberOfNPC;
+    [SerializeField] public int _maxNumberOfNPC;
+    [SerializeField] private List<FoodListScriptableObject.FoodListData> _foodList;
 
     [Header("References Setup")]
     [SerializeField] private Transform[] _spawnPoints;
+
+    [Header("Data Setup")]
+    [SerializeField] private FoodListScriptableObject _foodData;
 
     public static GameManager Instance { get; private set; }
 
@@ -30,6 +34,12 @@ public class GameManager : MonoBehaviour
         {
             Instance = this;
         }
+
+        List<FoodListScriptableObject.FoodListData> _foodList = Utils.Convert<FoodListScriptableObject.FoodListData[], List<FoodListScriptableObject.FoodListData>>(_foodData.Foods);
+
+        Debug.Log(_foodList.GetType());
+        Debug.Log(_foodList.Count);
+        Debug.Log(_foodList[0].foodPrefab.GetComponent<FoodController>().Name);
     }
 
     // Start is called before the first frame update
@@ -136,7 +146,8 @@ public class GameManager : MonoBehaviour
             return true;
         } else
         {
-            Debug.LogError("Game Manager: Player doesn't have the required amount to finish the transaction.");
+            Debug.LogError("Game Manager: Play" +
+                "er doesn't have the required amount to finish the transaction.");
 
             return false;
         }
@@ -153,5 +164,34 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public GameObject RequestAFood()
+    {
+        //    int availableFoods = _foodList.Foods.Length   ;
 
+        //    //Debug.Log(CustomersInQueue == null);
+
+        //    if (availableFoods >= 1)
+        //    {
+
+        //        int randomNumber = UnityEngine.Random.Range(0, availableFoods - 1);
+
+        //        GameObject food = GameObject.Instantiate(_unlockedNPCs[randomNumber], location, Quaternion.identity);
+
+        //        if (_customersContainer != null)
+        //            customer.transform.SetParent(_customersContainer.transform, true);
+
+        //        //NPCControler customerController = customer.GetComponent<NPCControler>();
+
+        //        Customers.Add(customer);
+
+        //        return customer;
+        //    }
+        //    else
+        //    {
+        //        return null;
+        //    }
+        //}
+
+        return null;
+    }
 }
