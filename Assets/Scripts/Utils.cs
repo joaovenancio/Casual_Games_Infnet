@@ -294,7 +294,7 @@ public class Utils : MonoBehaviour
             catch (Exception e) when (e is IndexOutOfRangeException) { }            
              
             
-            UnityEngine.Debug.Log(result.Count);
+            //UnityEngine.Debug.Log(result.Count);
 
             return (U)System.Convert.ChangeType(result, typeof(List<>).MakeGenericType(inputType.GetElementType()));
         }
