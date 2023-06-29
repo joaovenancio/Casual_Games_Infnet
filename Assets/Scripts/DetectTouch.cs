@@ -18,23 +18,34 @@ public class DetectTouch : MonoBehaviour
     {
         if (_collider == null)
             _collider = GetComponent<Collider2D>();
+
+        GameObject.FindFirstObjectByType<PlayerInput>().currentActionMap.FindAction("TouchedTheScreen").performed += Detect;
+        //GetComponent<PlayerInput>().currentActionMap.FindAction("TouchedTheScreen").canceled += Detect;
+        //GetComponent<PlayerInput>().onActionTriggered += Detect;
     }
 
     public void Detect(CallbackContext context)
     {
         Vector2 worldPoint = Camera.main.ScreenToWorldPoint(context.ReadValue<Vector2>());
 
-        RaycastHit2D hit = Physics2D.Raycast(Camera.main.transform.position, worldPoint);
+        ContactFilter2D filter2D = new ContactFilter2D().NoFilter();
+        RaycastHit2D[] hits = new RaycastHit2D[30];
+        Physics2D.Raycast(Camera.main.transform.position, worldPoint, filter2D, hits, Mathf.Infinity);
 
-        if (hit.collider == null)
-            return;
-
-        if (hit.collider.Equals(_collider))
+        foreach (RaycastHit2D hit in hits)
         {
+            if (hit.collider == null)
+                continue;
 
-            //runWhenTouched();
-            RunWhenTouched.Invoke();
-            Debug.Log("COLISÃO COLISÃO COLISÃO COLISÃO COLISÃO COLISÃO");
+            if (hit.collider.Equals(_collider))
+            {
+
+                //runWhenTouched();
+                RunWhenTouched.Invoke();
+                //Debug.Log("COLISÃO COLISÃO COLISÃO COLISÃO COLISÃO COLISÃO");
+            }
         }
+
+        
     }
 }

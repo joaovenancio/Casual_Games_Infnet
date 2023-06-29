@@ -41,6 +41,11 @@ public class NPCControler : MonoBehaviour
 
     }
 
+    public void TakeOrder()
+    {
+        Debug.Log("I took the order!");
+    }
+
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -61,4 +66,6 @@ public class NPCControler : MonoBehaviour
             _isNearSeat = false;
         }
     }
+
+
 }
