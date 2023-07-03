@@ -1847,6 +1847,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3864931641555956861, guid: e4b3cf6827f269243ab651ab74818e7e, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4626274391896832973, guid: e4b3cf6827f269243ab651ab74818e7e, type: 3}
       propertyPath: m_Name
       value: Food

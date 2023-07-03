@@ -5,15 +5,28 @@ using UnityEngine;
 
 public class NPCControler : MonoBehaviour
 {
+    [Header("Variables")]
     [SerializeField] public NPCState state;
     [SerializeField] public int QueuePosition; // First in the line is the number 0
     [SerializeField] private Move moveScript;
     [SerializeField] private bool _isNearSeat;
     [SerializeField] private FoodController _foodToOrder;
 
+    [Header("Refereces Setup")]
+    [SerializeField] private GameObject _dialogueBox;
+
+    private ChangeSprite _changeSprite;
+
     private void Awake()
     {
-        
+        SetupVariables();
+    }
+
+    private void SetupVariables()
+    {
+        _dialogueBox.SetActive(false);
+        _changeSprite = GetComponent<ChangeSprite>();
+        _changeSprite.TargetGameObject= _dialogueBox.GetComponentInChildren<Transform>().gameObject;
     }
 
     private void Update()
@@ -32,7 +45,8 @@ public class NPCControler : MonoBehaviour
 
         } else if (state == NPCState.CHOSING_FOOD)
         {
-            NPCManager.Instance.RecieveAFoodToOrder();
+            _foodToOrder = NPCManager.Instance.RecieveAFoodToOrder();
+            ShowDialogueFoodToOrder();
         } else if (moveScript.moving)
         {
             state = NPCState.MOVING;
@@ -71,5 +85,11 @@ public class NPCControler : MonoBehaviour
         }
     }
 
+    public void ShowDialogueFoodToOrder()
+    {
+        _dialogueBox.SetActive(true);
+        _changeSprite.SpriteToChange = _foodToOrder.GetComponent<SpriteRenderer>().sprite;
+        _changeSprite.Change();
+    }
 
 }

@@ -6,7 +6,7 @@ using System.Reflection;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using static UnityEditor.FilePathAttribute;
+//using static UnityEditor.FilePathAttribute;
 
 public class GameManager : MonoBehaviour
 {
@@ -35,7 +35,7 @@ public class GameManager : MonoBehaviour
             Instance = this;
         }
 
-        List<FoodListScriptableObject.FoodListData> _foodList = Utils.Convert<FoodListScriptableObject.FoodListData[], List<FoodListScriptableObject.FoodListData>>(_foodData.Foods);
+        _foodList = Utils.Convert<FoodListScriptableObject.FoodListData[], List<FoodListScriptableObject.FoodListData>>(_foodData.Foods);
 
         //Debug.Log(_foodList.GetType());
         //Debug.Log(_foodList.Count);
@@ -166,32 +166,23 @@ public class GameManager : MonoBehaviour
 
     public GameObject RequestAFood()
     {
-        //    int availableFoods = _foodList.Foods.Length   ;
+        int availableFoods = _foodList.Count;
 
-        //    //Debug.Log(CustomersInQueue == null);
+        Debug.Log("AAAAAAAAAAAAAAAAA: " + _foodList.Count);
 
-        //    if (availableFoods >= 1)
-        //    {
+        if (availableFoods >= 1)
+        {
 
-        //        int randomNumber = UnityEngine.Random.Range(0, availableFoods - 1);
+            int randomNumber = UnityEngine.Random.Range(0, availableFoods - 1);
 
-        //        GameObject food = GameObject.Instantiate(_unlockedNPCs[randomNumber], location, Quaternion.identity);
+            GameObject food = _foodList[randomNumber].foodPrefab;
 
-        //        if (_customersContainer != null)
-        //            customer.transform.SetParent(_customersContainer.transform, true);
-
-        //        //NPCControler customerController = customer.GetComponent<NPCControler>();
-
-        //        Customers.Add(customer);
-
-        //        return customer;
-        //    }
-        //    else
-        //    {
-        //        return null;
-        //    }
-        //}
-
-        return null;
+            return food;
+        }
+        else
+        {
+            Debug.Log("Game Manager: There is no available foods on the Food List.");
+            return null;
+        }
     }
 }

@@ -5,9 +5,11 @@ using UnityEngine;
 
 public class FoodController : MonoBehaviour
 {
+    [Header("Setup")]
     [SerializeField] public string Name;
     [SerializeField] public float Price;
 
+    [Header("References setup")]
     [SerializeField] private Sprite _sprite;
 
     private void Awake()

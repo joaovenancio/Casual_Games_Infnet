@@ -275,8 +275,8 @@ public class NPCManager : MonoBehaviour
         moveScript.MoveTo(path);
     }
 
-    internal void RecieveAFoodToOrder()
+    public FoodController RecieveAFoodToOrder()
     {
-        GameObject food = GameManager.Instance.RequestAFood();  
+        return GameManager.Instance.RequestAFood().GetComponent<FoodController>();  
     }
 }
