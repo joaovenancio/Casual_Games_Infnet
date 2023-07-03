@@ -26,7 +26,7 @@ public class NPCControler : MonoBehaviour
     {
         _dialogueBox.SetActive(false);
         _changeSprite = GetComponent<ChangeSprite>();
-        _changeSprite.TargetGameObject= _dialogueBox.GetComponentInChildren<Transform>().gameObject;
+        _changeSprite.TargetGameObject= _dialogueBox.GetComponent<Transform>().Find("Image").gameObject;
     }
 
     private void Update()
@@ -51,8 +51,7 @@ public class NPCControler : MonoBehaviour
         {
             state = NPCState.MOVING;
 
-        } else if (!moveScript.moving &&
-            !_isNearSeat)
+        } else if (!moveScript.moving)
         {
             state = NPCState.WAITING;
         }
