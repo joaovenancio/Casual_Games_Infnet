@@ -123,6 +123,11 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!82 &4270070 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 7388382852096737622, guid: 9c59b8c6c1e6b0547aad79c2cc0397a0, type: 3}
+  m_PrefabInstance: {fileID: 6899601966131467969}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &33206146
 GameObject:
   m_ObjectHideFlags: 0
@@ -1847,10 +1852,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3864931641555956861, guid: e4b3cf6827f269243ab651ab74818e7e, type: 3}
-      propertyPath: m_SortingOrder
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4626274391896832973, guid: e4b3cf6827f269243ab651ab74818e7e, type: 3}
       propertyPath: m_Name
       value: Food
@@ -2263,6 +2264,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1697274596530528278, guid: 9c59b8c6c1e6b0547aad79c2cc0397a0, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7388382852096737622, guid: 9c59b8c6c1e6b0547aad79c2cc0397a0, type: 3}
+      propertyPath: m_Volume
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7464110750900801007, guid: 9c59b8c6c1e6b0547aad79c2cc0397a0, type: 3}
+      propertyPath: GlobalAudioVolume
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7464110750900801007, guid: 9c59b8c6c1e6b0547aad79c2cc0397a0, type: 3}
+      propertyPath: _globalAudioSource
+      value: 
+      objectReference: {fileID: 4270070}
+    - target: {fileID: 7464110750900801007, guid: 9c59b8c6c1e6b0547aad79c2cc0397a0, type: 3}
+      propertyPath: _globalAudioVolume
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

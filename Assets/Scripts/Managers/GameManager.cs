@@ -168,7 +168,7 @@ public class GameManager : MonoBehaviour
     {
         int availableFoods = _foodList.Count;
 
-        Debug.Log("AAAAAAAAAAAAAAAAA: " + _foodList.Count);
+        //Debug.Log("AAAAAAAAAAAAAAAAA: " + _foodList.Count);
 
         if (availableFoods >= 1)
         {

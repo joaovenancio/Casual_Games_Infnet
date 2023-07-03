@@ -8,8 +8,10 @@ public class ChangeSprite : MonoBehaviour
     [Header("Setup")]
     public Sprite SpriteToChange;
     [SerializeField] private bool RunOnStart = false;
+    [SerializeField] private bool ReplaceSpriteRenderer = false;
 
-    private GameObject _targetGameObject;
+    [Header("Optional")]
+    [SerializeField] private GameObject _targetGameObject;
     public GameObject TargetGameObject {
         get { return _targetGameObject; }
         set

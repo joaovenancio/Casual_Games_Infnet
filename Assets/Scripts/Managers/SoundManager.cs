@@ -1,13 +1,26 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class SoundManager : MonoBehaviour
 {
+    [Header("Variables")]
+    [HideInInspector]
+    [SerializeField]private float _globalAudioVolume = 0.3f;
+    public float GlobalAudioVolume {
+        get { return this._globalAudioVolume; }
+        set 
+        {
+            _globalAudioVolume = value;
+            _globalAudioSource.volume = this._globalAudioVolume;
+        }
+    }
+
     [Header("Setup")]
     [SerializeField] private AudioEntry[] _audios;
-    [SerializeField] private AudioSource _GlobalAudioSource;
+    [SerializeField] private AudioSource _globalAudioSource;
 
     private Dictionary<string, AudioClip> _audioClipDictionary;
 
@@ -47,8 +60,9 @@ public class SoundManager : MonoBehaviour
 
             if (isSoundtrack)
             {
-                _GlobalAudioSource.clip = audioClip;
-                _GlobalAudioSource.Play();
+                _globalAudioSource.volume = GlobalAudioVolume;
+                _globalAudioSource.clip = audioClip;
+                _globalAudioSource.Play();
             } else
             {
                 if (target != null)
@@ -85,7 +99,11 @@ public class SoundManager : MonoBehaviour
         }
     }
 
-    //Structs
+    //Editor:
+
+
+
+    //Structs:
     [Serializable]
     private struct AudioEntry
     {
