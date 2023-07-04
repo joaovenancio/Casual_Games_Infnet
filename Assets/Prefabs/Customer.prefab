@@ -111,6 +111,7 @@ MonoBehaviour:
   _isNearSeat: 0
   _foodToOrder: {fileID: 0}
   _dialogueBox: {fileID: 7625542106552616421}
+  _isPlayerNear: 0
 --- !u!114 &6701202532939773847
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -168,6 +169,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SpriteToChange: {fileID: 0}
   RunOnStart: 0
+  _targetGameObject: {fileID: 0}
 --- !u!70 &6610663713051010206
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -391,6 +393,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5295027959568195336}
+  - component: {fileID: 8785142732970972149}
+  - component: {fileID: 2888419338711890299}
   m_Layer: 0
   m_Name: Near Plane
   m_TagString: Untagged
@@ -413,6 +417,87 @@ Transform:
   m_Father: {fileID: 446846341944923480}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!58 &8785142732970972149
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8209416830172467683}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.08, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.8361567
+--- !u!114 &2888419338711890299
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8209416830172467683}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 924654a1e73c1d74096353f90081bb0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isNear: 0
+  GameObjectsToObeserveIfItsNear:
+  - {fileID: 0}
+  FunctionsToCallOnTriggerEnter:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 220523601028908989}
+        m_TargetAssemblyTypeName: NPCControler, Assembly-CSharp
+        m_MethodName: ChangePlayerIsNear
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+  FunctionsToCallOnTriggerExit:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 220523601028908989}
+        m_TargetAssemblyTypeName: NPCControler, Assembly-CSharp
+        m_MethodName: ChangePlayerIsNear
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  DisableWarnings: 0
 --- !u!1 &8284923658557043951
 GameObject:
   m_ObjectHideFlags: 0
