@@ -16,6 +16,7 @@ public class NPCControler : MonoBehaviour
     [SerializeField] private GameObject _dialogueBox;
 
     private ChangeSprite _changeSprite;
+    [SerializeField] private bool _isPlayerNear;
 
     private void Awake()
     {
@@ -43,15 +44,18 @@ public class NPCControler : MonoBehaviour
         {
             state = NPCState.CHOSING_FOOD;
 
-        } else if (state == NPCState.CHOSING_FOOD)
+        } 
+        else if (state == NPCState.CHOSING_FOOD)
         {
             _foodToOrder = NPCManager.Instance.RecieveAFoodToOrder();
             ShowDialogueFoodToOrder();
-        } else if (moveScript.moving)
+        }  
+        else if (moveScript.moving)
         {
             state = NPCState.MOVING;
 
-        } else if (!moveScript.moving)
+        }
+        else if (!moveScript.moving && !(state == NPCState.ORDERING))
         {
             state = NPCState.WAITING;
         }
@@ -60,7 +64,11 @@ public class NPCControler : MonoBehaviour
 
     public void TakeOrder()
     {
-        Debug.Log("I took the order!");
+        if (state == NPCState.CHOSING_FOOD && _isPlayerNear)
+        {
+            Debug.Log("I took the order!");
+            state = NPCState.ORDERING;
+        }
     }
 
 
@@ -68,19 +76,26 @@ public class NPCControler : MonoBehaviour
     {
         if (collision != null)
         {
-            if (collision.transform.parent.gameObject.CompareTag("Seat"))
+            if (collision.transform.parent != null)
             {
-                _isNearSeat = true;
+                if (collision.transform.parent.gameObject.CompareTag("Seat"))
+                {
+                    _isNearSeat = true;
+                }
             }
+            
         }
         
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.transform.parent.gameObject.CompareTag("Seat"))
+        if (collision.transform.parent != null)
         {
-            _isNearSeat = false;
+            if (collision.transform.parent.gameObject.CompareTag("Seat"))
+            {
+                _isNearSeat = false;
+            }
         }
     }
 
@@ -89,6 +104,11 @@ public class NPCControler : MonoBehaviour
         _dialogueBox.SetActive(true);
         _changeSprite.SpriteToChange = _foodToOrder.GetComponent<SpriteRenderer>().sprite;
         _changeSprite.Change();
+    }
+
+    public void ChangePlayerIsNear(bool isPlayerNear)
+    {
+        _isPlayerNear = isPlayerNear;
     }
 
 }
