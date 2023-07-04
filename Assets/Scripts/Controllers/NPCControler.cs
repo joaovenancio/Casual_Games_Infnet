@@ -63,6 +63,14 @@ public class NPCControler : MonoBehaviour
                 _chosedFood = true;
             }
         }  
+        else if (state == NPCState.ORDERING)
+        {
+            //Something
+        }
+        else if (state == NPCState.WAITING_FOOD)
+        {
+            //Something -> maybe a timer
+        }
         else if (moveScript.moving)
         {
             state = NPCState.MOVING;
@@ -77,10 +85,10 @@ public class NPCControler : MonoBehaviour
 
     public void TakeOrder()
     {
-        if (state == NPCState.CHOSING_FOOD && _isPlayerNear)
+        if (state == NPCState.ORDERING && _isPlayerNear)
         {
             Debug.Log("I took the order!");
-            state = NPCState.ORDERING;
+            state = NPCState.WAITING_FOOD;
         }
     }
 
@@ -145,6 +153,7 @@ public class NPCControler : MonoBehaviour
         yield return new WaitForSeconds(time);
 
         ShowDialogueFoodToOrder();
+        state = NPCState.ORDERING;
 
         //After we have waited 5 seconds print the time again.
         //Debug.Log("Finished Coroutine at timestamp : " + Time.time);

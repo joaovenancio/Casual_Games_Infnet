@@ -8,6 +8,7 @@ public enum NPCState
     MOVING,
     CHOSING_FOOD,
     ORDERING,
+    WAITING_FOOD,
     EATING,
     PAYING,
     LEAVING
