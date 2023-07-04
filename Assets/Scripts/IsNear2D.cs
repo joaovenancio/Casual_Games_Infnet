@@ -85,11 +85,22 @@ public class IsNear2D : MonoBehaviour
         _collider.isTrigger = true;
     }
 
+    //TODO: Implement a list of objects that the script should be observing, and, for every object, tell if there is a collision or not. Use a string key for the values. Could be something arbitrary like a string or the object per se. Returns a boolean
     private void OnTriggerEnter2D(Collider2D collision)
     {
         foreach (GameObject objectsToAnalize in GameObjectsToObeserveIfItsNear)
         {
             if (objectsToAnalize.Equals(collision.gameObject))
+            {
+                IsNear = true;
+                if (FunctionsToCallOnTriggerEnter != null)
+                    FunctionsToCallOnTriggerEnter.Invoke(collision);
+            }
+        }
+
+        foreach (string tagToAnalize in TagsToObeserveIfItsNear)
+        {
+            if (tagToAnalize.Equals(collision.gameObject.tag))
             {
                 IsNear = true;
                 if (FunctionsToCallOnTriggerEnter != null)
@@ -103,6 +114,16 @@ public class IsNear2D : MonoBehaviour
         foreach (GameObject objectsToAnalize in GameObjectsToObeserveIfItsNear)
         {
             if (objectsToAnalize.Equals(collision.gameObject))
+            {
+                IsNear = false;
+                if (FunctionsToCallOnTriggerExit != null)
+                    FunctionsToCallOnTriggerExit.Invoke(collision);
+            }
+        }
+
+        foreach (string tagToAnalize in TagsToObeserveIfItsNear)
+        {
+            if (tagToAnalize.Equals(collision.gameObject.tag))
             {
                 IsNear = false;
                 if (FunctionsToCallOnTriggerExit != null)

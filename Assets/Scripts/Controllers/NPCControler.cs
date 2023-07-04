@@ -14,9 +14,12 @@ public class NPCControler : MonoBehaviour
 
     [Header("Refereces Setup")]
     [SerializeField] private GameObject _dialogueBox;
+    [SerializeField] private Sprite[] _emojis;
 
     private ChangeSprite _changeSprite;
     [SerializeField] private bool _isPlayerNear;
+    private bool _showedEmoji = false;
+    private bool _chosedFood = false;
 
     private void Awake()
     {
@@ -28,6 +31,8 @@ public class NPCControler : MonoBehaviour
         _dialogueBox.SetActive(false);
         _changeSprite = GetComponent<ChangeSprite>();
         _changeSprite.TargetGameObject= _dialogueBox.GetComponent<Transform>().Find("Image").gameObject;
+        if (_emojis.Length == 0)
+            Debug.LogWarning("No emojis");
     }
 
     private void Update()
@@ -47,8 +52,16 @@ public class NPCControler : MonoBehaviour
         } 
         else if (state == NPCState.CHOSING_FOOD)
         {
-            _foodToOrder = NPCManager.Instance.RecieveAFoodToOrder();
-            ShowDialogueFoodToOrder();
+            if (!_showedEmoji)
+            {
+                ShowEmoji(0);
+                _showedEmoji = true;
+            }
+            if (!_chosedFood)
+            {
+                StartCoroutine(ChooseFood(5));
+                _chosedFood = true;
+            }
         }  
         else if (moveScript.moving)
         {
@@ -102,13 +115,39 @@ public class NPCControler : MonoBehaviour
     public void ShowDialogueFoodToOrder()
     {
         _dialogueBox.SetActive(true);
+        //Animation
         _changeSprite.SpriteToChange = _foodToOrder.GetComponent<SpriteRenderer>().sprite;
+        _changeSprite.Change();
+    }
+
+    public void ShowEmoji(int index)
+    {
+        _dialogueBox.SetActive(true);
+        //Animation
+        _changeSprite.SpriteToChange = _emojis[index];
         _changeSprite.Change();
     }
 
     public void ChangePlayerIsNear(bool isPlayerNear)
     {
         _isPlayerNear = isPlayerNear;
+    }
+
+    IEnumerator ChooseFood(int time)
+    {
+        //Print the time of when the function is first called.
+        //Debug.Log("Started Coroutine at timestamp : " + Time.time);
+
+        _foodToOrder = NPCManager.Instance.RecieveAFoodToOrder();
+        //ShowDialogueFoodToOrder();
+
+        //yield on a new YieldInstruction that waits for 5 seconds.
+        yield return new WaitForSeconds(time);
+
+        ShowDialogueFoodToOrder();
+
+        //After we have waited 5 seconds print the time again.
+        //Debug.Log("Finished Coroutine at timestamp : " + Time.time);
     }
 
 }

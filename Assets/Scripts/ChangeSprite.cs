@@ -44,6 +44,7 @@ public class ChangeSprite : MonoBehaviour
 
     public void Change()
     {
+        Debug.Log("I changed!");
         if (HasSpriteRenderer())
         {
             if (HasSprite())
