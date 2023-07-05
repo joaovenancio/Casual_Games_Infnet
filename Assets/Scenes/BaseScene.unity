@@ -1769,6 +1769,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1808410236}
+  - component: {fileID: 1808410239}
   - component: {fileID: 1808410235}
   - component: {fileID: 1808410237}
   - component: {fileID: 1808410238}
@@ -1848,13 +1849,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de8da426f8e6d41488829fa97383332b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Chats: []
+  Chats:
+  - Charaters: []
+    Names: []
+    WhatToSay: 
+    UiImagesToChangeUsingReferences: []
+    UiImagesToChangeUsingCharacter: []
+    RunOnStart: []
+    RunOnEnd: []
   RunOnStart:
     m_PersistentCalls:
       m_Calls: []
   RunOnEnd:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &1808410239
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1808410234}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b26f7e7b6aaba94498496c0877ab66c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1808889089
 GameObject:
   m_ObjectHideFlags: 0

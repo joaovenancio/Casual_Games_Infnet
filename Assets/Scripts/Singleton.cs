@@ -16,7 +16,6 @@ public class Singleton<T> : MonoBehaviour
         else
         {
             Instance = (T) this.ConvertTo(typeof(T));
-            Debug.Log("Funcionei?");
         }
     }
 
