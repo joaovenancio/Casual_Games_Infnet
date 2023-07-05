@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class UIManager : MonoBehaviour
 {
+    [Header("Dialogue UI")]
+    [SerializeField] private Canvas _dialogueCanvas;
 
 
     [Header("Setup")]

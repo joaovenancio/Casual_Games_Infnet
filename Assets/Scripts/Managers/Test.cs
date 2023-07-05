@@ -27,4 +27,9 @@ public class Test : MonoBehaviour
     {
         Debug.Log("Position: " + Camera.main.ScreenToWorldPoint(cntx.ReadValue<Vector2>()) );
     }
+
+    public static void TesteChat()
+    {
+        Debug.Log("Teste de chat");
+    }
 }
