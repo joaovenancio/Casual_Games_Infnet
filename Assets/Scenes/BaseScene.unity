@@ -1794,6 +1794,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Dialogues:
   - {fileID: 0}
+  - {fileID: 0}
   EnableGameObjects: 0
   WhatToEnable: []
   RunOnStart:
@@ -1802,6 +1803,19 @@ MonoBehaviour:
   RunOnEnd:
     m_PersistentCalls:
       m_Calls: []
+  _disableLogs: 0
+  CurrentDialogue: {fileID: 0}
+  CurrentChat:
+    Charaters: []
+    DontUseCharactersNames: 0
+    CustomSender: 
+    WhatToSay: 
+    MultipleCharactersNameSeparator: 
+    LastCharacterNameSeparator: 
+    UiImagesToChangeUsingReferences: []
+    UiImagesToChangeUsingCharacter: []
+    RunOnStart: []
+    RunOnEnd: []
 --- !u!4 &1808410236
 Transform:
   m_ObjectHideFlags: 0
@@ -1851,8 +1865,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Chats:
   - Charaters: []
-    Names: []
+    DontUseCharactersNames: 0
+    CustomSender: 
     WhatToSay: 
+    MultipleCharactersNameSeparator: 
+    LastCharacterNameSeparator: 
     UiImagesToChangeUsingReferences: []
     UiImagesToChangeUsingCharacter: []
     RunOnStart: []
