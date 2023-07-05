@@ -7,7 +7,7 @@ public class Singleton<T> : MonoBehaviour
 {
     public static T Instance { get; private set; }
 
-    protected void SingletonCheck()
+    protected void InitializeSingleton()
     {
         if (Instance != null && Instance.Equals(this))
         {
@@ -21,6 +21,6 @@ public class Singleton<T> : MonoBehaviour
 
     private void Awake()
     {
-        SingletonCheck();
+        InitializeSingleton();
     }
 }

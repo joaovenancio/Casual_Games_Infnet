@@ -26,6 +26,7 @@ public class DialogueUI : Singleton<DialogueUI>
 
     private void Awake()
     {
+        InitializeSingleton();
         RetrieveTextObjectReferece();
         RetrieveDialogueSenderObjectReference();
     }
@@ -88,6 +89,14 @@ public class DialogueUI : Singleton<DialogueUI>
 
     private void RetrieveTextObjectReferece()
     {
+        if (_interfaceTextElement == null)
+        {
+            if (!_disableLogs)
+                Debug.LogWarning("DialogueUI on " + gameObject.name + ": Interface Text Element is not set.");
+
+            return;
+        }
+
         _textMeshPro = _interfaceTextElement.GetComponent<TMPro.TextMeshProUGUI>();
 
         if (_textMeshPro != null)
@@ -97,20 +106,23 @@ public class DialogueUI : Singleton<DialogueUI>
         }
         else
         {
+            _doUseTMPInText = false;
             _textUnity = _interfaceTextElement.GetComponent<Text>();
-
-            if (_textUnity == null)
-            {
-                if (!_disableLogs)
-                    Debug.LogWarning("DialogueUI on " + gameObject.name + ": Interface Text Element is not set.");
-
-                return;
-            }
         }
+
+        CheckTextReferences();
     }
 
     private void RetrieveDialogueSenderObjectReference()
     {
+        if (_interfaceSenderTextElement == null)
+        {
+            if (!_disableLogs)
+                Debug.Log("DialogueUI on " + gameObject.name + ": Sender Text Element is not set.");
+
+            return;
+        }
+
         _senderTextMeshPro = _interfaceSenderTextElement.GetComponent<TMPro.TextMeshProUGUI>();
 
         if (_senderTextMeshPro != null)
@@ -120,23 +132,19 @@ public class DialogueUI : Singleton<DialogueUI>
         }
         else
         {
+            _doUseTMPInSender = false;
             _senderTextUnity = _interfaceSenderTextElement.GetComponent<Text>();
-
-            if (_senderTextUnity == null)
-            {
-                if (!_disableLogs)
-                    Debug.Log("DialogueUI on " + gameObject.name + ": Sender Text Element is not set.");
-
-                return;
-            }
         }
+
+        CheckSenderReferences();
     }
 
     private bool CheckTextReferences()
     {
         if (_textMeshPro == null && _textUnity == null)
         {
-            Debug.LogWarning("DialogueUI on " + gameObject.name + ": No Text Element defined.");
+            if (!_disableLogs)
+                Debug.LogWarning("DialogueUI on " + gameObject.name + ": No Text Element defined.");
 
             return true;
         } else
@@ -149,7 +157,8 @@ public class DialogueUI : Singleton<DialogueUI>
     {
         if (_senderTextMeshPro == null && _senderTextUnity == null)
         {
-            Debug.LogWarning("DialogueUI on " + gameObject.name + ": No Sender Element defined.");
+            if (!_disableLogs)
+                Debug.LogWarning("DialogueUI on " + gameObject.name + ": No Sender Element defined.");
 
             return true;
         }

@@ -1875,6 +1875,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b26f7e7b6aaba94498496c0877ab66c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _interfaceTextElement: {fileID: 308600365}
+  _interfaceSenderTextElement: {fileID: 0}
+  _disableLogs: 0
 --- !u!1 &1808889089
 GameObject:
   m_ObjectHideFlags: 0
