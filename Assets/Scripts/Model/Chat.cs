@@ -19,8 +19,8 @@ public struct Chat
     public String LastCharacterNameSeparator;
     public UIImageToSpriteDictionary[] UiImagesToChangeUsingReferences;
     public UiImageToCharacterDictionary[] UiImagesToChangeUsingCharacter;
-    public UnityEvent[] RunOnStart;
-    public UnityEvent[] RunOnEnd;
+    public UnityEvent RunOnStart;
+    public UnityEvent RunOnEnd;
 
 
 

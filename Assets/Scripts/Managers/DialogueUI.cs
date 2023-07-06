@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 [Serializable]
-public class DialogueUI : Singleton<DialogueUI>
+public class DialogueUI : Singleton<DialogueUI>, IDialogueUI
 {
     [Header("References Setup")]
     [SerializeField] private GameObject _interfaceTextElement;

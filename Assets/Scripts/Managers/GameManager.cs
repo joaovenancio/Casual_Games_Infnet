@@ -37,6 +37,8 @@ public class GameManager : MonoBehaviour
 
         _foodList = Utils.Convert<FoodListScriptableObject.FoodListData[], List<FoodListScriptableObject.FoodListData>>(_foodData.Foods);
 
+        
+
         //Debug.Log(_foodList.GetType());
         //Debug.Log(_foodList.Count);
         //Debug.Log(_foodList[0].foodPrefab.GetComponent<FoodController>().Name);
@@ -46,6 +48,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         SetupByScene();
+        DialogueManager.Instance.StartDialogue();
     }
 
     IEnumerator ExampleCoroutine(int time)

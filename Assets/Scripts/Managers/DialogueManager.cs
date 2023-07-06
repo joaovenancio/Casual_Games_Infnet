@@ -28,6 +28,8 @@ public class DialogueManager : Singleton<DialogueManager>
     [Space]
     public UnityEvent RunOnEnd;
     [Space]
+    public UnityEvent RunWhenNoDialoguesLeft;
+    [Space]
     [Space]
     [Header("Options")]
     [Space]
@@ -41,6 +43,7 @@ public class DialogueManager : Singleton<DialogueManager>
     
 
     private Dialogue _nextDialogue = null;
+    private Dialogue _previousDialogue = null;
     private int _currentDialogueIndex = 0;
     private Chat _nextChat;
     private Chat[] _chats;
@@ -49,12 +52,22 @@ public class DialogueManager : Singleton<DialogueManager>
 
     private void Awake()
     {
+        InitializeSingleton();
         CheckForDialogues();
+        CheckEvents();
+
+        Debug.Log("Final Awake");
+    }
+
+    private void CheckEvents()
+    {
+
     }
 
     // Start is called before the first frame update
     void Start()
     {
+        RunOnStart.Invoke();
         EnableObjects();
     }
 
@@ -63,12 +76,23 @@ public class DialogueManager : Singleton<DialogueManager>
         if (Dialogues.Length == 0)
         {
             if (!_disableLogs)
-                Debug.LogWarning("DialogueManager in "+gameObject.name+": there is no Dialogues set.");
+                Debug.LogWarning("DialogueManager in "+gameObject.name+": there any Dialogue set.");
 
             return;
         }
 
         _currentDialogueIndex = 0;
+        CurrentDialogue = Dialogues[_currentDialogueIndex];
+
+        if (CurrentDialogue == null)
+        {
+            if (!_disableLogs)
+                Debug.LogWarning("DialogueManager in " + gameObject.name + ": There is a Null element in the Dialogues list. Please, check the references.");
+
+            return;
+        }
+
+        UpdateDialogues();
     }
 
     private void EnableObjects()
@@ -78,7 +102,8 @@ public class DialogueManager : Singleton<DialogueManager>
 
         foreach(GameObject obj in WhatToEnable)
         {
-            obj.SetActive(true);
+            if (obj != null)
+                obj.SetActive(true);
         }
     }
 
@@ -95,42 +120,94 @@ public class DialogueManager : Singleton<DialogueManager>
 
     public void StartDialogue()
     {
-        _currentDialogueIndex = 0;
-        CurrentDialogue = Dialogues[0];
+        CurrentDialogue.RunOnStart.Invoke();
 
         LoadChats();
         UpdateUIWithChat();
+
+        CurrentDialogue.RunOnEnd.Invoke();
     }
 
+    #pragma warning disable CS0168
+    public void UpdateDialogues()
+    {
+
+        try {
+            if (Dialogues[_currentDialogueIndex + 1] != null)
+            {
+                _nextDialogue = Dialogues[_currentDialogueIndex + 1];
+            }
+        } catch (IndexOutOfRangeException e) {
+            _nextDialogue = null;
+        }
+
+        try
+        {
+            if (Dialogues[_currentDialogueIndex - 1] != null)
+            {
+                _previousDialogue = Dialogues[_currentDialogueIndex - 1];
+            }
+        }
+        catch (IndexOutOfRangeException e)
+        {
+            _previousDialogue = null;
+        }
+    }
+    #pragma warning restore CS0168
+
+    //TODO:
     private void LoadChats()
     {
         _chats = Dialogues[_currentDialogueIndex].Chats;
 
         if (_chats == null)
         {
+            Debug.Log("NULO");
             DebugLogNoChats();
             return;
         }
         if (_chats.Length == 0)
         {
+            Debug.Log("NULO MANINHO");
             DebugLogNoChats();
             return;
         }
+        if (_chats[0].Equals(default(Chat)))
+        {
+            Debug.Log("TOTALMENTE NULO MANINHO");
+            DebugLogNoChats();
+            return;
+        }
+
+        _currentChatIndex = 0;
     }
 
     private void DebugLogNoChats()
     {
         if (!_disableLogs)
-            Debug.Log("Dialogue Manager in " + gameObject.name + ": Dialogue *" + Dialogues[_currentDialogueIndex].gameObject.name + "* doesn't have any chat set.");
+            Debug.Log("Dialogue Manager in " + gameObject.name + ": Dialogue *" + _currentDialogueIndex + " - on GameObject " + Dialogues[_currentDialogueIndex].gameObject.name + "* doesn't have any chat set.");
     }
 
     //TODO
     private void UpdateUIWithChat()
     {
+        CurrentChat.RunOnStart.Invoke();
+        UpdateSender();
+        UpdateText();
+        CurrentChat.RunOnEnd.Invoke();
+    }
+
+    private void UpdateText()
+    {
+        
+    }
+
+    private void UpdateSender()
+    {
         if (CurrentChat.DontUseCharactersNames)
         {
             DialogueUI.Instance.WriteDialogueSender(CurrentChat.CustomSender);
-        } 
+        }
         else
         {
             String result = default;
@@ -140,7 +217,7 @@ public class DialogueManager : Singleton<DialogueManager>
                 DebugLogNoCharacters();
                 return;
             }
-            if(CurrentChat.Charaters.Length == 0)
+            if (CurrentChat.Charaters.Length == 0)
             {
                 DebugLogNoCharacters();
                 return;
@@ -148,43 +225,79 @@ public class DialogueManager : Singleton<DialogueManager>
             if (String.IsNullOrEmpty(CurrentChat.MultipleCharactersNameSeparator))
                 CurrentChat.MultipleCharactersNameSeparator = "";
             if (String.IsNullOrEmpty(CurrentChat.LastCharacterNameSeparator))
-                CurrentChat.MultipleCharactersNameSeparator = "";
+                CurrentChat.LastCharacterNameSeparator = "";
+
+            bool firstCharacter = true;
 
             foreach (Character character in CurrentChat.Charaters)
             {
+                if (!firstCharacter)
+                {
+                    result += CurrentChat.MultipleCharactersNameSeparator;
+                }
+                else
+                {
+                    firstCharacter = false;
+                }
 
+                result += character.name;
             }
+
+            result += CurrentChat.LastCharacterNameSeparator;
 
             DialogueUI.Instance.WriteDialogueSender(result);
         }
-        
     }
 
     private void DebugLogNoCharacters ()
     {
         if (!_disableLogs)
-            Debug.Log("Dialogue Manager in " + gameObject.name + ": Dialogue *" + Dialogues[_currentDialogueIndex].gameObject.name + "* doesn't have any Character set.");
+            if (!CurrentChat.DontUseCharactersNames)
+                Debug.Log("Dialogue Manager in " + gameObject.name + ": Dialogue *" + Dialogues[_currentDialogueIndex].gameObject.name + "* doesn't have any Character set.");
     }
 
     public void NextDialogue()
     {
+        if (_nextDialogue == null)
+        {
+            RunWhenThereIsNoDialogueLeft();
+        } else {
+            CurrentDialogue = _nextDialogue;
+            _currentDialogueIndex++;
+            UpdateDialogues();
+            StartDialogue();
+        }
+        
+    }
 
+    private void RunWhenThereIsNoDialogueLeft()
+    {
+        RunWhenNoDialoguesLeft.Invoke();
+
+        Dialogues = new Dialogue[0];
+        RunOnStart = new UnityEvent();
+        RunOnEnd = new UnityEvent();
+        RunWhenNoDialoguesLeft = new UnityEvent();
+        CurrentDialogue = null;
+        CurrentChat = default;
+        _nextDialogue = null;
+        _currentDialogueIndex = 0;
+        _nextChat = default;
+        _chats = new Chat[0];
+        _currentChatIndex = 0;
     }
 
     public void PreviousDialogue()
     {
+        if (_previousDialogue == null)
+            return;
 
+        CurrentDialogue = _previousDialogue;
+        UpdateDialogues();
+        StartDialogue();
     }
 
-    public void NextChat()
-    {
-
-    }
-
-    public void PreviousChat()
-    {
-
-    }
+    
 
     //Menu Itens
     [MenuItem("GameObject/Dialogue System/Dialogue Manager", false, 1)]

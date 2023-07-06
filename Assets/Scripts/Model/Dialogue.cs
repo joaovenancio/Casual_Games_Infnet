@@ -8,7 +8,7 @@ using UnityEngine.Events;
 using static DialogueManager;
 
 [Serializable]
-public class Dialogue : MonoBehaviour
+public class Dialogue : MonoBehaviour, IDialogue
 {
     [Space]
     public Chat[] Chats;
@@ -31,6 +31,16 @@ public class Dialogue : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public Chat NextChat()
+    {
+        return default;
+    }
+
+    public Chat PreviousChat()
+    {
+        return default;
     }
 
     [MenuItem("GameObject/Dialogue System/Dialogue", false, 1)]
