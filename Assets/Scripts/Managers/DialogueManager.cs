@@ -7,6 +7,7 @@ using UnityEditor;
 using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.TextCore.Text;
 
 //TODO: Interface
 public class DialogueManager : Singleton<DialogueManager>
@@ -46,6 +47,7 @@ public class DialogueManager : Singleton<DialogueManager>
     private Dialogue _previousDialogue = null;
     private int _currentDialogueIndex = 0;
     private Chat _nextChat;
+    private Chat _previousChat;
     private Chat[] _chats;
     private int _currentChatIndex = 0;
     
@@ -56,7 +58,7 @@ public class DialogueManager : Singleton<DialogueManager>
         CheckForDialogues();
         CheckEvents();
 
-        Debug.Log("Final Awake");
+        //Debug.Log("Final Awake");
     }
 
     private void CheckEvents()
@@ -155,6 +157,35 @@ public class DialogueManager : Singleton<DialogueManager>
     }
     #pragma warning restore CS0168
 
+    #pragma warning disable CS0168
+    public void UpdateChats()
+    {
+        try
+        {
+            if (_chats[_currentChatIndex + 1] != null)
+            {
+                _nextChat = _chats[_currentChatIndex + 1];
+            }
+        }
+        catch (IndexOutOfRangeException e)
+        {
+            _nextChat = null;
+        }
+
+        try
+        {
+            if (_chats[_currentChatIndex - 1] != null)
+            {
+                _previousChat = _chats[_currentChatIndex - 1];
+            }
+        }
+        catch (IndexOutOfRangeException e)
+        {
+            _previousChat = null;
+        }
+    }
+    #pragma warning restore CS0168
+
     //TODO:
     private void LoadChats()
     {
@@ -180,6 +211,9 @@ public class DialogueManager : Singleton<DialogueManager>
         }
 
         _currentChatIndex = 0;
+        CurrentChat = _chats[_currentChatIndex];
+
+        UpdateChats();
     }
 
     private void DebugLogNoChats()
@@ -210,8 +244,6 @@ public class DialogueManager : Singleton<DialogueManager>
         }
         else
         {
-            String result = default;
-
             if (CurrentChat.Charaters == null)
             {
                 DebugLogNoCharacters();
@@ -222,26 +254,74 @@ public class DialogueManager : Singleton<DialogueManager>
                 DebugLogNoCharacters();
                 return;
             }
+
             if (String.IsNullOrEmpty(CurrentChat.MultipleCharactersNameSeparator))
                 CurrentChat.MultipleCharactersNameSeparator = "";
             if (String.IsNullOrEmpty(CurrentChat.LastCharacterNameSeparator))
                 CurrentChat.LastCharacterNameSeparator = "";
 
+
+            //#pragma warning disable CS0168
+            //try
+            //{
+            //    character = CurrentChat.Charaters[0];
+            //}
+            //catch (Exception e)
+            //{
+            //    DebugLogNoCharacters();
+            //    return;
+            //}
+            //#pragma warning restore CS0168
+
+
+            //TODO
+            String result = default;
             bool firstCharacter = true;
+            bool useLastSeparator = false;
+            Character character = null;
 
-            foreach (Character character in CurrentChat.Charaters)
+            for (int characterIndex = 0; characterIndex < CurrentChat.Charaters.Length; characterIndex++)
             {
-                if (!firstCharacter)
-                {
-                    result += CurrentChat.MultipleCharactersNameSeparator;
-                }
-                else
-                {
-                    firstCharacter = false;
-                }
+                character = CurrentChat.Charaters[characterIndex];
 
-                result += character.name;
+                if (character != null)
+                {
+                    if (!firstCharacter)
+                    {
+                        #pragma warning disable CS0168
+                        try
+                        {
+                            if (CurrentChat.Charaters[characterIndex + 1] != null)
+                                result += CurrentChat.MultipleCharactersNameSeparator;
+
+                        } catch (IndexOutOfRangeException e)
+                        {
+                            result += CurrentChat.LastCharacterNameSeparator;
+                        }
+                        #pragma warning restore CS0168
+                    }
+                    else
+                    {
+                        firstCharacter = false;
+                    }
+
+                    result += character.Name;
+                } else
+                {
+                    if (!_disableLogs)
+                        Debug.Log("Dialogue Manager in " + gameObject.name + ": Character index *" + characterIndex + "* in Chat *" + _currentChatIndex + "* of Dialogue *" + _currentDialogueIndex +
+                            "* (located on GameObject " + Dialogues[_currentDialogueIndex].gameObject.name + ") doesn't have any character set.");
+                }
+                
             }
+
+
+            //foreach ()
+            //{
+                
+
+                
+            //}
 
             result += CurrentChat.LastCharacterNameSeparator;
 
@@ -272,8 +352,6 @@ public class DialogueManager : Singleton<DialogueManager>
 
     private void RunWhenThereIsNoDialogueLeft()
     {
-        RunWhenNoDialoguesLeft.Invoke();
-
         Dialogues = new Dialogue[0];
         RunOnStart = new UnityEvent();
         RunOnEnd = new UnityEvent();
@@ -285,6 +363,8 @@ public class DialogueManager : Singleton<DialogueManager>
         _nextChat = default;
         _chats = new Chat[0];
         _currentChatIndex = 0;
+
+        RunWhenNoDialoguesLeft.Invoke();
     }
 
     public void PreviousDialogue()

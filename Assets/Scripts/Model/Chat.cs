@@ -8,7 +8,7 @@ using UnityEngine.TextCore.Text;
 using UnityEngine.UI;
 
 [Serializable]
-public struct Chat
+public class Chat
 {
     public Character[] Charaters;
     public bool DontUseCharactersNames;

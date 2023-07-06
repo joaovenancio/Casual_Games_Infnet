@@ -1908,8 +1908,8 @@ GameObject:
   - component: {fileID: 1808410236}
   - component: {fileID: 1808410239}
   - component: {fileID: 1808410235}
+  - component: {fileID: 1808410241}
   - component: {fileID: 1808410237}
-  - component: {fileID: 1808410238}
   - component: {fileID: 1808410240}
   m_Layer: 0
   m_Name: Cool
@@ -1988,7 +1988,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a404936d95fa36447a60a1bdffe90cd2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Name: 
+  Name: Amanda
   Thumbnails:
   - Name: 
     Sprite: {fileID: 0}
@@ -1996,39 +1996,6 @@ MonoBehaviour:
     Sprite: {fileID: 0}
   Images: []
   Description: 
---- !u!114 &1808410238
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1808410234}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: de8da426f8e6d41488829fa97383332b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Chats:
-  - Charaters: []
-    DontUseCharactersNames: 1
-    CustomSender: TESTEZEIRA FODA
-    WhatToSay: ADORO TESTAR COISAS MANOW
-    MultipleCharactersNameSeparator: 
-    LastCharacterNameSeparator: 
-    UiImagesToChangeUsingReferences: []
-    UiImagesToChangeUsingCharacter: []
-    RunOnStart:
-      m_PersistentCalls:
-        m_Calls: []
-    RunOnEnd:
-      m_PersistentCalls:
-        m_Calls: []
-  RunOnStart:
-    m_PersistentCalls:
-      m_Calls: []
-  RunOnEnd:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!114 &1808410239
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2057,12 +2024,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Chats:
-  - Charaters: []
+  - Charaters:
+    - {fileID: 1808410241}
+    - {fileID: 1808410237}
     DontUseCharactersNames: 0
-    CustomSender: 
+    CustomSender: AMENDOIM LOUCOOO
     WhatToSay: 
-    MultipleCharactersNameSeparator: 
-    LastCharacterNameSeparator: 
+    MultipleCharactersNameSeparator: ',  '
+    LastCharacterNameSeparator: ' and '
     UiImagesToChangeUsingReferences: []
     UiImagesToChangeUsingCharacter: []
     RunOnStart:
@@ -2091,6 +2060,22 @@ MonoBehaviour:
   RunOnEnd:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &1808410241
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1808410234}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a404936d95fa36447a60a1bdffe90cd2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: Lily
+  Thumbnails: []
+  Images: []
+  Description: 
 --- !u!1 &1808889089
 GameObject:
   m_ObjectHideFlags: 0
