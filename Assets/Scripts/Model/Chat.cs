@@ -17,6 +17,7 @@ public class Chat
     public string WhatToSay;
     public String MultipleCharactersNameSeparator;
     public String LastCharacterNameSeparator;
+    public String WhatToWriteOnEndOfSenderText;
     public UIImageToSpriteDictionary[] UiImagesToChangeUsingReferences;
     public UiImageToCharacterDictionary[] UiImagesToChangeUsingCharacter;
     public UnityEvent RunOnStart;

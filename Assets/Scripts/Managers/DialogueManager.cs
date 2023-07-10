@@ -260,21 +260,6 @@ public class DialogueManager : Singleton<DialogueManager>
             if (String.IsNullOrEmpty(CurrentChat.LastCharacterNameSeparator))
                 CurrentChat.LastCharacterNameSeparator = "";
 
-
-            //#pragma warning disable CS0168
-            //try
-            //{
-            //    character = CurrentChat.Charaters[0];
-            //}
-            //catch (Exception e)
-            //{
-            //    DebugLogNoCharacters();
-            //    return;
-            //}
-            //#pragma warning restore CS0168
-
-
-            //TODO
             String result = default;
             bool firstCharacter = true;
             bool useLastSeparator = false;
@@ -315,15 +300,13 @@ public class DialogueManager : Singleton<DialogueManager>
                 
             }
 
-
-            //foreach ()
-            //{
-                
-
-                
-            //}
-
-            result += CurrentChat.LastCharacterNameSeparator;
+            if (CurrentChat.WhatToWriteOnEndOfSenderText != null)
+            {
+                if (!CurrentChat.WhatToWriteOnEndOfSenderText.Equals(""))
+                {
+                    result += CurrentChat.WhatToWriteOnEndOfSenderText;
+                }
+            }
 
             DialogueUI.Instance.WriteDialogueSender(result);
         }
