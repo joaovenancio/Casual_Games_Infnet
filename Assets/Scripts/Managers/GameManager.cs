@@ -48,7 +48,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         SetupByScene();
-        DialogueManager.Instance.StartDialogue();
+        //DialogueManager.Instance.StartDialogue();
     }
 
     IEnumerator ExampleCoroutine(int time)

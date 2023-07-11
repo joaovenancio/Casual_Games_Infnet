@@ -1743,54 +1743,6 @@ Transform:
   m_Father: {fileID: 404662877}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1377181845
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1377181847}
-  - component: {fileID: 1377181846}
-  m_Layer: 0
-  m_Name: Cool
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1377181846
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1377181845}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a404936d95fa36447a60a1bdffe90cd2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Name: 
-  Thumbnails: []
-  Images: []
-  Description: 
---- !u!4 &1377181847
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1377181845}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 27
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1463633334
 GameObject:
   m_ObjectHideFlags: 0
@@ -1933,12 +1885,10 @@ MonoBehaviour:
   Dialogues:
   - {fileID: 1808410240}
   - {fileID: 0}
+  _runDialoguesOnStart: 1
   EnableGameObjects: 0
   WhatToEnable: []
   RunOnStart:
-    m_PersistentCalls:
-      m_Calls: []
-  RunOnEnd:
     m_PersistentCalls:
       m_Calls: []
   RunWhenNoDialoguesLeft:
@@ -1953,6 +1903,7 @@ MonoBehaviour:
     WhatToSay: 
     MultipleCharactersNameSeparator: 
     LastCharacterNameSeparator: 
+    WhatToWriteOnEndOfSenderText: 
     UiImagesToChangeUsingReferences: []
     UiImagesToChangeUsingCharacter: []
     RunOnStart:
@@ -2029,10 +1980,13 @@ MonoBehaviour:
     - {fileID: 1808410237}
     DontUseCharactersNames: 0
     CustomSender: AMENDOIM LOUCOOO
-    WhatToSay: 
+    WhatToSay: "WOOOHOOOOO! T\xD4 TESTANDO UM MONT\xC3O DE COISAAAASSSSSSSSS!!!!!"
     MultipleCharactersNameSeparator: ',  '
     LastCharacterNameSeparator: ' and '
-    UiImagesToChangeUsingReferences: []
+    WhatToWriteOnEndOfSenderText: '!'
+    UiImagesToChangeUsingReferences:
+    - TargetUiImage: {fileID: 0}
+      SpriteToChang: {fileID: 0}
     UiImagesToChangeUsingCharacter: []
     RunOnStart:
       m_PersistentCalls:
@@ -2046,6 +2000,7 @@ MonoBehaviour:
     WhatToSay: 
     MultipleCharactersNameSeparator: 
     LastCharacterNameSeparator: 
+    WhatToWriteOnEndOfSenderText: 
     UiImagesToChangeUsingReferences: []
     UiImagesToChangeUsingCharacter: []
     RunOnStart:

@@ -5,6 +5,7 @@ using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.TextCore.Text;
 using static DialogueManager;
 
 [Serializable]
@@ -46,7 +47,16 @@ public class Dialogue : MonoBehaviour, IDialogue
     [MenuItem("GameObject/Dialogue System/Dialogue", false, 1)]
     public static void CreateDialogue()
     {
-        UnityEngine.Object dialogueManager = new GameObject("Dialogue");
-        dialogueManager.AddComponent<Dialogue>();
+        string path = AssetDatabase.GetAssetPath(Selection.activeObject);
+
+        UnityEngine.Object dialogue = new GameObject("New Dialogue");
+        dialogue.AddComponent<Dialogue>();
+
+        if (Selection.activeObject != null) {
+            dialogue.GameObject().transform.parent = Selection.activeObject.GameObject().transform; ;
+        }
+            
+        ProjectWindowUtil.ShowCreatedAsset(dialogue);
+
     }
 }
