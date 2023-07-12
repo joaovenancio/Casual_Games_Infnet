@@ -36,10 +36,10 @@ public class DialogueManager : Singleton<DialogueManager>
     [SerializeField] private bool _disableLogs = false;
     [Space]
     [Space]
-    [Header("Variables")]
+    [Header("Debug Variables")]
     [Space]
-    public Dialogue CurrentDialogue = null;
-    public Chat CurrentChat;
+    [ReadOnly] public Dialogue CurrentDialogue = null;
+    [ReadOnly] public Chat CurrentChat;
     
 
     private Dialogue _nextDialogue = null;
@@ -349,7 +349,7 @@ public class DialogueManager : Singleton<DialogueManager>
     {
         if (_nextDialogue == null)
         {
-            RunWhenThereIsNoDialogueLeft();
+            Debug.Log("Dialogue Manager in " + gameObject.name + ": There is no Dialogues left.");
         }
         else
         {
@@ -405,6 +405,13 @@ public class DialogueManager : Singleton<DialogueManager>
     {
         UnityEngine.Object dialogueManager = new GameObject("Dialogue Manager");
         dialogueManager.AddComponent<DialogueManager>();
+
+        if (Selection.activeObject != null)
+        {
+            dialogueManager.GameObject().transform.parent = Selection.activeObject.GameObject().transform; ;
+        }
+
+        ProjectWindowUtil.ShowCreatedAsset(dialogueManager);
     }
 
     [MenuItem("GameObject/Dialogue System/Dialogue Manager with Dialogue UI", false, 1)]
@@ -414,6 +421,40 @@ public class DialogueManager : Singleton<DialogueManager>
         dialogueManager.AddComponent<DialogueUI>();
         dialogueManager.AddComponent<DialogueManager>();
 
+        if (Selection.activeObject != null)
+        {
+            dialogueManager.GameObject().transform.parent = Selection.activeObject.GameObject().transform; ;
+        }
+
+        ProjectWindowUtil.ShowCreatedAsset(dialogueManager);
+
     }
+
+    //TODO: Make it a new class
+    //https://discussions.unity.com/t/how-to-make-a-readonly-property-in-inspector/75448/7
+    public class ReadOnlyAttribute : PropertyAttribute
+    {
+
+    }
+
+    [CustomPropertyDrawer(typeof(ReadOnlyAttribute))]
+    public class ReadOnlyDrawer : PropertyDrawer
+    {
+        public override float GetPropertyHeight(SerializedProperty property,
+                                                GUIContent label)
+        {
+            return EditorGUI.GetPropertyHeight(property, label, true);
+        }
+
+        public override void OnGUI(Rect position,
+                                   SerializedProperty property,
+                                   GUIContent label)
+        {
+            GUI.enabled = false;
+            EditorGUI.PropertyField(position, property, label, true);
+            GUI.enabled = true;
+        }
+    }
+
 
 }
