@@ -15,7 +15,7 @@ public class Utils : MonoBehaviour
 
     }
 
-#pragma warning disable CS0168
+    #pragma warning disable CS0168
     public static void DebugVariables(object obj)
     {
         if (obj == null)
