@@ -1,43 +1,42 @@
-
-
-
-
+/*
+ * Unity Documentation
+ * https://docs.unity.com/ads/UnityDeveloperIntegrations.html
+ */
 
 using UnityEngine;
 using UnityEngine.Advertisements;
 
-/*
-public class AdsController : MonoBehaviour , IUnityAdsLoadListener, IUnityAdsShowListener, IUnityAdsInitializationListener;
+public class AdsController : MonoBehaviour, IUnityAdsLoadListener, IUnityAdsShowListener, IUnityAdsInitializationListener
 {
     #region Variables
     public static AdsController instance;
 
-    string _androidGameId;
-    string _iOSGameId;
-    bool _testMode = true;
+    [SerializeField] string _androidGameId;
+    [SerializeField] string _iOSGameId;
+    [SerializeField] bool _testMode = true;
     private string _gameId;
 
-    string _Skippable_Video_Id = null;
-    string _Rewarded_Video_Id = null;
-    string _Banner_Id = null;
+    [SerializeField] string _Skippable_Video_Id = null;
+    [SerializeField] string _Rewarded_Video_Id = null;
+    [SerializeField] string _Banner_Id = null;
 
-    string _androidAdSkippable = "video";
-    string _iOSAdSkippable = "video";
+    [SerializeField] string _androidAdSkippable = "video";
+    [SerializeField] string _iOSAdSkippable = "video";
 
-    string _androidAdRewarded = "rewardedVideo";
-    string _iOSAdRewarded = "reawardedVideo";
+    [SerializeField] string _androidAdRewarded = "rewardedVideo";
+    [SerializeField] string _iOSAdRewarded = "rewardedVideo";
 
-    string _androidAdBanner = "banner";
-    string _iOSAdBanner = "banner";
+    [SerializeField] string _androidAdBanner = "banner";
+    [SerializeField] string _iOSAdBanner = "banner";
 
-    string _adUnitId = null; // this will remain null for unsupported platforms
+    string _adUnitId = null; // This will remain null for unsupported platforms
     #endregion
 
     #region Unity Methods
     void Awake()
     {
         instance = this;
-        // Get the Ad Unity ID for the current platform
+        // Get the Ad Unit ID for the current platform:
 #if UNITY_IOS
         _Skippable_Video_Id = _iOSAdSkippable;
         _Rewarded_Video_Id = _iOSAdRewarded;
@@ -46,7 +45,7 @@ public class AdsController : MonoBehaviour , IUnityAdsLoadListener, IUnityAdsSho
         _Skippable_Video_Id = _androidAdSkippable;
         _Rewarded_Video_Id = _androidAdRewarded;
         _Banner_Id = _androidAdBanner;
-#endif
+#endif        
         InitializeAds();
     }
     #endregion
@@ -61,7 +60,7 @@ public class AdsController : MonoBehaviour , IUnityAdsLoadListener, IUnityAdsSho
     }
     public void OnInitializationComplete()
     {
-        Debug.Log("Unity Ads Initialization complete.");
+        Debug.Log("Unity Ads initialization complete.");
         LoadBanner();
     }
 
@@ -103,33 +102,33 @@ public class AdsController : MonoBehaviour , IUnityAdsLoadListener, IUnityAdsSho
     {
         _adUnitId = _Banner_Id;
 
-        // Set up options to notify the SDK of load events
+        // Set up options to notify the SDK of load events:
         BannerLoadOptions _options = new BannerLoadOptions
         {
             loadCallback = OnBannerLoaded,
             errorCallback = OnBannerError
         };
 
-        // Load the Ad Unit with banner content
+        // Load the Ad Unit with banner content:
 
         Advertisement.Banner.SetPosition(BannerPosition.BOTTOM_CENTER);
         Advertisement.Banner.Load(_adUnitId, _options);
     }
-    public void OnBannerLoaded()
+    void OnBannerLoaded()
     {
         Debug.Log("Banner loaded");
         ShowBanner();
     }
-    // Implement code to execute when the load errorCallback even triggers
+    // Implement code to execute when the load errorCallback event triggers:
     void OnBannerError(string message)
     {
         Debug.Log($"Banner Error: {message}");
-        // Opitionally execute additional code, such as attempting to load another ad
+        // Optionally execute additional code, such as attempting to load another ad.
     }
-    // Implement a method to call when the Hide Banner button is clicked
+    // Implement a method to call when the Hide Banner button is clicked:
     public void ShowBanner()
     {
-        // Set up options to notify the SDK of show events
+        // Set up options to notify the SDK of show events:
         BannerOptions _options = new BannerOptions
         {
             clickCallback = OnBannerClicked,
@@ -146,21 +145,19 @@ public class AdsController : MonoBehaviour , IUnityAdsLoadListener, IUnityAdsSho
     }
     void OnBannerShown()
     {
-
     }
     public void HideBannerAd()
     {
-        // Hide the Banner
+        // Hide the banner:
         Advertisement.Banner.Hide();
     }
     void OnBannerHidden()
     {
-
     }
     #endregion
 
     #region Others Methods
-    //If the ad successfully loads, add a listener to the button and enable it
+    // If the ad successfully loads, add a listener to the button and enable it:
     public void OnUnityAdsAdLoaded(string adUnitId)
     {
         Debug.Log("Ad Loaded: " + adUnitId);
@@ -176,53 +173,55 @@ public class AdsController : MonoBehaviour , IUnityAdsLoadListener, IUnityAdsSho
         else if (adUnitId.Equals(_Banner_Id))
         {
             Debug.Log("OnUnityAdsAdLoaded - _Banner Loaded");
+
         }
     }
     public void OnUnityAdsShowComplete(string adUnitId, UnityAdsShowCompletionState showCompletionState)
     {
-        if (showCompletionState.Equals(UnityAdsCompletionState.COMPLETED))
+        if (showCompletionState.Equals(UnityAdsShowCompletionState.COMPLETED))
         {
+
             if (adUnitId.Equals(_Rewarded_Video_Id))
             {
-                Debug.Log("Unity Ads Rewarded Video Complete");
+                Debug.Log("Unity Ads Rewarded Video Completed");
                 Debug.Log("Player rewarded");
-                // Grant a reward
+                // Grant a reward.
+
             }
             if (adUnitId.Equals(_Skippable_Video_Id))
             {
-                Debug.Log("Unity Ads Skippable Video Complete");
+                Debug.Log("Unity Ads Skippable Video Completed");
                 Debug.Log("Player rewarded");
-                // Grant a reward
+                // Grant a reward.
+
             }
         }
         else
         {
             Debug.Log("Unity Ads Video Not Completed");
+
         }
+
+
     }
-    // Implement Load and Show Listener error callbacks
+    // Implement Load and Show Listener error callbacks:
     public void OnUnityAdsFailedToLoad(string adUnitId, UnityAdsLoadError error, string message)
     {
         Debug.Log($"Error loading Ad Unit {adUnitId}: {error.ToString()} - {message}");
-        // Use the error details to determine whether to try to load another ad
+        // Use the error details to determine whether to try to load another ad.
     }
     public void OnUnityAdsShowFailure(string adUnitId, UnityAdsShowError error, string message)
     {
         Debug.Log($"Error showing Ad Unit {adUnitId}: {error.ToString()} - {message}");
-        // Use the error details to determine whether to try to load another ad
+        // Use the error details to determine whether to try to load another ad.
     }
-    public void OnUnityAdsShowStart(string asUnitId)
-    {
+    public void OnUnityAdsShowStart(string adUnitId) { }
+    public void OnUnityAdsShowClick(string adUnitId) { }
 
-    }
-    public void OnUnityAdsShowClick(string asUnitId)
-    {
 
-    }
     public bool IsShowing()
     {
         return Advertisement.isShowing;
     }
     #endregion
 }
-*/
