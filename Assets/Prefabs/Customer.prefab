@@ -113,6 +113,7 @@ MonoBehaviour:
   _dialogueBox: {fileID: 7625542106552616421}
   _emojis:
   - {fileID: 21300000, guid: c41be86d1a084634a9c6213f36100aa5, type: 3}
+  - {fileID: 21300000, guid: c41be86d1a084634a9c6213f36100aa5, type: 3}
   _isPlayerNear: 0
 --- !u!114 &6701202532939773847
 MonoBehaviour:
@@ -576,7 +577,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 2
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0.103773594, g: 0.03867035, b: 0.03867035, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

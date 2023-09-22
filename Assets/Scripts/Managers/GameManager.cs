@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
 
     [Header("References Setup")]
     [SerializeField] private Transform[] _spawnPoints;
+    [SerializeField] private PlayerController _playerController;
 
     [Header("Data Setup")]
     [SerializeField] private FoodListScriptableObject _foodData;
@@ -78,6 +79,8 @@ public class GameManager : MonoBehaviour
             case "BaseScene":
                 SoundManager.Instance.Play("soundtrack2", true, null);
 
+                InitializeFoodUI();
+
                 GameObject g = SpawnRandomCustomer();
                 NPCManager.Instance.AddToQueue(g);
 
@@ -92,7 +95,6 @@ public class GameManager : MonoBehaviour
                 NPCManager.Instance.AddToQueue(gosg);
 
                 StartCoroutine(ExampleCoroutine(6));
-
 
 
                 //NPCManager.Instance.AddToQueue(SpawnRandomCustomer());
@@ -156,6 +158,16 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public bool RecieveMoney(int amount)
+    {
+        _playerMoney = _playerMoney + amount;
+
+        UIManager.Instance.UpdateText("Money", _playerMoney.ToString());
+
+        return true;
+    }
+
+
     private void Gameplay()
     {
         switch (_gameState)
@@ -187,5 +199,27 @@ public class GameManager : MonoBehaviour
             Debug.Log("Game Manager: There is no available foods on the Food List.");
             return null;
         }
+    }
+
+    public void AddFoodToPlayer (GameObject food)
+    {
+        _playerController.AddFood(food);
+    }
+
+    public void PlayerDeliverFoodTo(NPCControler npc)
+    {
+        _playerController.DeliverFood(npc.FoodToOrder.gameObject);
+    }
+
+    public void InitializeFoodUI()
+    {
+        List<GameObject> foodList = new List<GameObject>();
+
+        foreach (FoodListScriptableObject.FoodListData fld in _foodList)
+        {
+            foodList.Add(fld.foodPrefab);
+        }
+
+        UIManager.Instance.PopulateFoodContainer(foodList.ToArray());
     }
 }

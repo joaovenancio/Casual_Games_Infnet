@@ -10,7 +10,7 @@ public class NPCControler : MonoBehaviour
     [SerializeField] public int QueuePosition; // First in the line is the number 0
     [SerializeField] private Move moveScript;
     [SerializeField] private bool _isNearSeat;
-    [SerializeField] private FoodController _foodToOrder;
+    [SerializeField] public FoodController FoodToOrder;
 
     [Header("Refereces Setup")]
     [SerializeField] private GameObject _dialogueBox;
@@ -89,6 +89,11 @@ public class NPCControler : MonoBehaviour
         {
             Debug.Log("I took the order!");
             state = NPCState.WAITING_FOOD;
+            ShowEmoji(1);
+
+        } else if (state == NPCState.WAITING_FOOD && _isPlayerNear)
+        {
+            GameManager.Instance.PlayerDeliverFoodTo(this);
         }
     }
 
@@ -124,7 +129,7 @@ public class NPCControler : MonoBehaviour
     {
         _dialogueBox.SetActive(true);
         //Animation
-        _changeSprite.SpriteToChange = _foodToOrder.GetComponent<SpriteRenderer>().sprite;
+        _changeSprite.SpriteToChange = FoodToOrder.GetComponent<SpriteRenderer>().sprite;
         _changeSprite.Change();
     }
 
@@ -146,7 +151,7 @@ public class NPCControler : MonoBehaviour
         //Print the time of when the function is first called.
         //Debug.Log("Started Coroutine at timestamp : " + Time.time);
 
-        _foodToOrder = NPCManager.Instance.RecieveAFoodToOrder();
+        FoodToOrder = NPCManager.Instance.RecieveAFoodToOrder();
         //ShowDialogueFoodToOrder();
 
         //yield on a new YieldInstruction that waits for 5 seconds.

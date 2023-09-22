@@ -54,6 +54,15 @@ public class ChangeSprite : MonoBehaviour
         }
     }
 
+    public void DefaultSprite()
+    {
+        Debug.Log("Default Sprite");
+        if (HasSpriteRenderer())
+        {
+            _targetSpriteRenderer.sprite = null;
+        }
+    }
+
     private bool HasSpriteRenderer()
     {
         if (_targetSpriteRenderer == null)

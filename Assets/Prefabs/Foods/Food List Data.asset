@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7107cf7f0de1c4748b7571d909d5bab9, type: 3}
+  m_Name: Food List Data
+  m_EditorClassIdentifier: 
+  Foods:
+  - foodPrefab: {fileID: 5913953960282037076, guid: eeb560d9437d87d4ba0111c6e69a459f, type: 3}
+    unlocked: 1
+  - foodPrefab: {fileID: 5913953960282037076, guid: 8c4c156cd1477394289778979fdd86cc, type: 3}
+    unlocked: 1
+  - foodPrefab: {fileID: 5913953960282037076, guid: 2db8685d4f010ca409b89293fa34ae87, type: 3}
+    unlocked: 1
+  - foodPrefab: {fileID: 5913953960282037076, guid: 700cb5f300aa4364283424ad999ed8ef, type: 3}
+    unlocked: 1
+  - foodPrefab: {fileID: 5913953960282037076, guid: debf94ee19d2c4240a1f310e3214b14c, type: 3}
+    unlocked: 1
+  - foodPrefab: {fileID: 5913953960282037076, guid: 1c5ae9cae92280e49b34963e426b9e0d, type: 3}
+    unlocked: 1
+  - foodPrefab: {fileID: 5913953960282037076, guid: 2a9014430694ceb46a3b5bca1474e7a0, type: 3}
+    unlocked: 1
+  - foodPrefab: {fileID: 5913953960282037076, guid: 8084b642b3530b142a8123266b920b08, type: 3}
+    unlocked: 1
