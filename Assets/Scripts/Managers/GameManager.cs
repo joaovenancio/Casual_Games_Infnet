@@ -103,7 +103,35 @@ public class GameManager : MonoBehaviour
 
                 //GameObject gig = SpawnRandomCustomer();
                 //NPCManager.Instance.AddToQueue(gig);
+                break;
 
+            case "Restaurant 1":
+                SoundManager.Instance.Play("soundtrack2", true, null);
+
+                InitializeFoodUI();
+
+                GameObject g1 = SpawnRandomCustomer();
+                NPCManager.Instance.AddToQueue(g1);
+
+                GameObject go1 = SpawnRandomCustomer();
+                NPCManager.Instance.AddToQueue(go1);
+
+                GameObject test1 = NPCManager.Instance.RemoveFromQueue();
+                //Debug.Log(test.GetInstanceID());
+                SeatManager.Instance.Seat(test1);
+
+                GameObject gosg1 = SpawnRandomCustomer();
+                NPCManager.Instance.AddToQueue(gosg1);
+
+                StartCoroutine(ExampleCoroutine(6));
+
+
+                //NPCManager.Instance.AddToQueue(SpawnRandomCustomer());
+                //NPCManager.Instance.AddToQueue(SpawnRandomCustomer());
+                //SeatManager.Instance.Seat(NPCManager.Instance.RemoveFromQueue());
+
+                //GameObject gig = SpawnRandomCustomer();
+                //NPCManager.Instance.AddToQueue(gig);
                 break;
         }
     }
