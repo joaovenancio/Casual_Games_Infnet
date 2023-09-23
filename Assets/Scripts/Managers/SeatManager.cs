@@ -55,24 +55,28 @@ public class SeatManager : MonoBehaviour
         }
     }
 
-    //public bool Deseat (GameObject customer)
-    //{
-    //    if (NumberFreeSeats > 0)
-    //    {
-    //        foreach (Seat seat in _seats)
-    //        {
-    //            if (seat.Occupied)
-    //            {
-    //                if (seat.Customer.Equals(customer))
-    //                {
-    //                    NPCManager.Instance.MoveNPC(customer, Utils.Convert<Transform[], Vector2[]>(_pathToExit));
-    //                    NPCManager.Instance.Despawn(customer);
-    //                    seat.Occupied = false;
-    //                }
-    //            }
-    //        }
-    //    }
-    //}
+    public void Deseat (GameObject customer)
+    {
+        if (NumberFreeSeats > 0)
+        {
+            foreach (Seat seat in _seats)
+            {
+                if (seat.Occupied)
+                {
+                    if (seat.Customer.Equals(customer))
+                    {
+                        Debug.Log(Utils.Convert<Transform[], Vector2[]>(_pathToExit).Length);
+                        NPCManager.Instance.MoveNPC(customer, Utils.Convert<Transform[], Vector2[]>(_pathToExit));
+                        //NPCManager.Instance.Despawn(customer);
+
+                        seat.Occupied = false;
+                        seat.Customer = customer;
+                        NumberFreeSeats++;
+                    }
+                }
+            }
+        }
+    }
 
     private Seat GetFreeSeat()
     {

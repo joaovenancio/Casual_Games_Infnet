@@ -236,7 +236,7 @@ public class GameManager : MonoBehaviour
 
     public bool PlayerDeliverFoodTo(NPCControler npc)
     {
-        return _playerController.DeliverFood(npc.FoodToOrder.gameObject);
+        return _playerController.DeliverFood(npc.FoodToOrder.gameObject, npc);
     }
 
     public void InitializeFoodUI()

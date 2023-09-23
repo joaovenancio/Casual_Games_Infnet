@@ -68,6 +68,7 @@ public class Move : MonoBehaviour
     {
         moving = false;
         _move = false;
+        _locationsToMove.Clear();
     }
 
     public void MoveTo(Vector2 targetLocation)

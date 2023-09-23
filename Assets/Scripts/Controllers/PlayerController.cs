@@ -83,13 +83,16 @@ public class PlayerController : MonoBehaviour
         return null;
     }
 
-    public bool DeliverFood(GameObject food)
+    public bool DeliverFood(GameObject food, NPCControler npc)
     {
         FoodHolder foodHolder = RetrieveOccupiedFoodHolder(food);
 
         if (foodHolder != null)
         {
             Debug.Log("Thank you!!!");
+
+            npc.state = NPCState.EATING;
+
             GameManager.Instance.RecieveMoney(((int)foodHolder.FoodPrefrab.GetComponent<FoodController>().Price));
             foodHolder.FoodPrefrab = null;
 

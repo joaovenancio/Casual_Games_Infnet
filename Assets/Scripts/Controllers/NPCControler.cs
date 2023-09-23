@@ -70,6 +70,13 @@ public class NPCControler : MonoBehaviour
         else if (state == NPCState.WAITING_FOOD)
         {
             //Something -> maybe a timer
+        }else if (state == NPCState.EATING)
+        {
+            //Something -> maybe a timer
+            state = NPCState.LEAVING;
+        }else if (state == NPCState.LEAVING)
+        {
+            SeatManager.Instance.Deseat(gameObject);
         }
         else if (moveScript.moving)
         {

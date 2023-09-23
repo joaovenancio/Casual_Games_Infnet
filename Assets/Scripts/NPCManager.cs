@@ -280,8 +280,15 @@ public class NPCManager : MonoBehaviour
         return GameManager.Instance.RequestAFood().GetComponent<FoodController>();  
     }
 
-    internal void Despawn(GameObject customer)
+    public void Despawn(GameObject customer)
     {
+        Debug.Log(customer.GetComponent<Move>().moving);
+
+        while (customer.GetComponent<Move>().moving)
+        {
+
+        } ;
+
         Customers.Remove(customer);
         Destroy(customer);
     }
