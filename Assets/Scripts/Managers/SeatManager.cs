@@ -67,7 +67,7 @@ public class SeatManager : MonoBehaviour
                     {
                         Debug.Log(Utils.Convert<Transform[], Vector2[]>(_pathToExit).Length);
                         NPCManager.Instance.MoveNPC(customer, Utils.Convert<Transform[], Vector2[]>(_pathToExit));
-                        //NPCManager.Instance.Despawn(customer);
+                        NPCManager.Instance.Despawn(customer);
 
                         seat.Occupied = false;
                         seat.Customer = customer;

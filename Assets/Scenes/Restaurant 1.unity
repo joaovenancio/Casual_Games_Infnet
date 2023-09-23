@@ -5329,6 +5329,22 @@ PrefabInstance:
       propertyPath: _seats.Array.data[3]
       value: 
       objectReference: {fileID: 685641988}
+    - target: {fileID: 7794907154693149164, guid: 961f8f244089d444d91d1027329dec2f, type: 3}
+      propertyPath: _pathToExit.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7794907154693149164, guid: 961f8f244089d444d91d1027329dec2f, type: 3}
+      propertyPath: _pathToExit.Array.data[0]
+      value: 
+      objectReference: {fileID: 559498438}
+    - target: {fileID: 7794907154693149164, guid: 961f8f244089d444d91d1027329dec2f, type: 3}
+      propertyPath: _pathToExit.Array.data[1]
+      value: 
+      objectReference: {fileID: 2095472503}
+    - target: {fileID: 7794907154693149164, guid: 961f8f244089d444d91d1027329dec2f, type: 3}
+      propertyPath: _pathToExit.Array.data[2]
+      value: 
+      objectReference: {fileID: 1480446382}
     - target: {fileID: 9192201201004855822, guid: 961f8f244089d444d91d1027329dec2f, type: 3}
       propertyPath: m_Name
       value: Seats Manager
