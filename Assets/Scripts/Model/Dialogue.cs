@@ -44,6 +44,7 @@ public class Dialogue : MonoBehaviour, IDialogue
         return default;
     }
 
+    #if UNITY_EDITOR
     [MenuItem("GameObject/Dialogue System/Dialogue", false, 1)]
     public static void CreateDialogue()
     {
@@ -59,4 +60,6 @@ public class Dialogue : MonoBehaviour, IDialogue
         ProjectWindowUtil.ShowCreatedAsset(dialogue);
 
     }
+
+#endif
 }

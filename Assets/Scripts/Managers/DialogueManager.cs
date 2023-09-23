@@ -3,8 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
+#if UNITY_EDITOR
 using UnityEditor;
 using UnityEditor.UIElements;
+#endif
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.TextCore.Text;
@@ -38,8 +40,14 @@ public class DialogueManager : Singleton<DialogueManager>
     [Space]
     [Header("Debug Variables")]
     [Space]
-    [ReadOnly] public Dialogue CurrentDialogue = null;
-    [ReadOnly] public Chat CurrentChat;
+#if UNITY_EDITOR
+    [ReadOnly]
+#endif
+    public Dialogue CurrentDialogue = null;
+#if UNITY_EDITOR
+    [ReadOnly]
+#endif
+    public Chat CurrentChat;
     
 
     private Dialogue _nextDialogue = null;
@@ -399,6 +407,8 @@ public class DialogueManager : Singleton<DialogueManager>
         UpdateUIWithChat();
     }
 
+# if UNITY_EDITOR
+
     //Menu Itens
     [MenuItem("GameObject/Dialogue System/Dialogue Manager", false, 1)]
     public static void CreateDialogueManager()
@@ -430,6 +440,7 @@ public class DialogueManager : Singleton<DialogueManager>
 
     }
 
+
     //TODO: Make it a new class
     //https://discussions.unity.com/t/how-to-make-a-readonly-property-in-inspector/75448/7
     public class ReadOnlyAttribute : PropertyAttribute
@@ -456,5 +467,6 @@ public class DialogueManager : Singleton<DialogueManager>
         }
     }
 
+#endif
 
 }

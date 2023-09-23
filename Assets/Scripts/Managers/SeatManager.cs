@@ -7,6 +7,7 @@ public class SeatManager : MonoBehaviour
 {
     [Header("References setup")]
     [SerializeField] private List<Seat> _seats;
+    [SerializeField] private Transform[] _pathToExit;
 
     public int NumberSeats { get; private set; }
     public int NumberFreeSeats { get; private set; }
@@ -53,6 +54,25 @@ public class SeatManager : MonoBehaviour
             return false;
         }
     }
+
+    //public bool Deseat (GameObject customer)
+    //{
+    //    if (NumberFreeSeats > 0)
+    //    {
+    //        foreach (Seat seat in _seats)
+    //        {
+    //            if (seat.Occupied)
+    //            {
+    //                if (seat.Customer.Equals(customer))
+    //                {
+    //                    NPCManager.Instance.MoveNPC(customer, Utils.Convert<Transform[], Vector2[]>(_pathToExit));
+    //                    NPCManager.Instance.Despawn(customer);
+    //                    seat.Occupied = false;
+    //                }
+    //            }
+    //        }
+    //    }
+    //}
 
     private Seat GetFreeSeat()
     {
