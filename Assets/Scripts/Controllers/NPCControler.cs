@@ -76,6 +76,7 @@ public class NPCControler : MonoBehaviour
             state = NPCState.LEAVING;
         }else if (state == NPCState.LEAVING)
         {
+            Debug.Log("VOU SAIR");
             SeatManager.Instance.Deseat(gameObject);
         }
         else if (moveScript.moving)
@@ -121,6 +122,21 @@ public class NPCControler : MonoBehaviour
         
     }
 
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision != null)
+        {
+            if (collision.transform.parent != null)
+            {
+                if (collision.transform.parent.gameObject.CompareTag("Seat"))
+                {
+                    _isNearSeat = true;
+                }
+            }
+
+        }
+    }
+
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.transform.parent != null)
@@ -138,6 +154,11 @@ public class NPCControler : MonoBehaviour
         //Animation
         _changeSprite.SpriteToChange = FoodToOrder.GetComponent<SpriteRenderer>().sprite;
         _changeSprite.Change();
+    }
+
+    public void DisableDialogue()
+    {
+        _dialogueBox.SetActive(false);
     }
 
     public void ShowEmoji(int index)

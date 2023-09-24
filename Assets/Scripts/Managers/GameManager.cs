@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int _playerMoney;
     [SerializeField] public int _maxNumberOfNPC;
     [SerializeField] private List<FoodListScriptableObject.FoodListData> _foodList;
+    private int _activeNPCs;
 
     [Header("References Setup")]
     [SerializeField] private Transform[] _spawnPoints;
@@ -110,20 +111,22 @@ public class GameManager : MonoBehaviour
 
                 InitializeFoodUI();
 
-                GameObject g1 = SpawnRandomCustomer();
-                NPCManager.Instance.AddToQueue(g1);
 
-                GameObject go1 = SpawnRandomCustomer();
-                NPCManager.Instance.AddToQueue(go1);
 
-                GameObject test1 = NPCManager.Instance.RemoveFromQueue();
-                //Debug.Log(test.GetInstanceID());
-                SeatManager.Instance.Seat(test1);
+                //GameObject g1 = SpawnRandomCustomer();
+                //NPCManager.Instance.AddToQueue(g1);
 
-                GameObject gosg1 = SpawnRandomCustomer();
-                NPCManager.Instance.AddToQueue(gosg1);
+                //GameObject go1 = SpawnRandomCustomer();
+                //NPCManager.Instance.AddToQueue(go1);
 
-                StartCoroutine(ExampleCoroutine(6));
+                //GameObject test1 = NPCManager.Instance.RemoveFromQueue();
+
+                //SeatManager.Instance.Seat(test1);
+
+                //GameObject gosg1 = SpawnRandomCustomer();
+                //NPCManager.Instance.AddToQueue(gosg1);
+
+                //StartCoroutine(ExampleCoroutine(6));
 
 
                 //NPCManager.Instance.AddToQueue(SpawnRandomCustomer());
@@ -195,6 +198,7 @@ public class GameManager : MonoBehaviour
         return true;
     }
 
+    public bool testez = true;
 
     private void Gameplay()
     {
@@ -202,6 +206,28 @@ public class GameManager : MonoBehaviour
         {
             case GameState.PLAYING:
 
+                if (_activeNPCs < _maxNumberOfNPC)
+                {
+                    GameObject newNPC = SpawnRandomCustomer();
+                    _activeNPCs++;
+                    NPCManager.Instance.AddToQueue(newNPC);
+                }
+
+                //if (testez)
+                //{
+                //    GameObject test = NPCManager.Instance.RemoveFromQueue();
+                //    _activeNPCs--;
+                //    SeatManager.Instance.Seat(test);
+
+                //    testez = false;
+                //}
+
+                if (SeatManager.Instance.NumberFreeSeats > 0)
+                {
+                    GameObject test = NPCManager.Instance.RemoveFromQueue();
+                    _activeNPCs--;
+                    SeatManager.Instance.Seat(test);
+                }
 
                 break;
         }

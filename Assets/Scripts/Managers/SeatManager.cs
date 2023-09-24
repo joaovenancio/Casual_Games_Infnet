@@ -57,7 +57,7 @@ public class SeatManager : MonoBehaviour
 
     public void Deseat (GameObject customer)
     {
-        if (NumberFreeSeats > 0)
+        if (NumberFreeSeats >= 0)
         {
             foreach (Seat seat in _seats)
             {

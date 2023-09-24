@@ -266,6 +266,17 @@ public class NPCManager : MonoBehaviour
         moveScript.MoveTo(path);
     }
 
+    public void MoveNPC(GameObject npc, Vector2[] path, bool despawnAtEnd)
+    {
+        if (path == null || npc == null) return;
+
+        Move moveScript = npc.GetComponent<Move>();
+         
+        moveScript.MoveTo(path);
+
+        if (despawnAtEnd) Despawn(npc);
+    }
+
     public void MoveNPC(GameObject npc, Vector2 path)
     {
         if (path == null || npc == null) return;
@@ -284,12 +295,25 @@ public class NPCManager : MonoBehaviour
     {
         Debug.Log(customer.GetComponent<Move>().moving);
 
-        while (customer.GetComponent<Move>().moving)
-        {
-
-        } ;
-
         Customers.Remove(customer);
+
+        customer.GetComponent<NPCControler>().DisableDialogue();
+
+        StartCoroutine(DespawnCoroutine(8, customer));
+
+    }
+
+    IEnumerator DespawnCoroutine(int time, GameObject customer)
+    {
+        //Print the time of when the function is first called.
+        //Debug.Log("Started Coroutine at timestamp : " + Time.time);
+
+        //yield on a new YieldInstruction that waits for 5 seconds.
+        yield return new WaitForSeconds(time);
+
         Destroy(customer);
+
+        //After we have waited 5 seconds print the time again.
+        //Debug.Log("Finished Coroutine at timestamp : " + Time.time);
     }
 }
