@@ -111,7 +111,7 @@ public class GameManager : MonoBehaviour
 
                 InitializeFoodUI();
 
-
+                UIManager.Instance.UpdateText("Money", _playerMoney.ToString());
 
                 //GameObject g1 = SpawnRandomCustomer();
                 //NPCManager.Instance.AddToQueue(g1);

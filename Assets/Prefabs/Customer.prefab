@@ -39,7 +39,7 @@ Transform:
   - {fileID: 5295027959568195336}
   - {fileID: 2085500956955107797}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &6167281730488985841
 SpriteRenderer:
@@ -81,7 +81,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 1, g: 0.46052665, b: 0, a: 1}
   m_FlipX: 0
@@ -109,7 +109,7 @@ MonoBehaviour:
   QueuePosition: 0
   moveScript: {fileID: 3410067863733455475}
   _isNearSeat: 0
-  _foodToOrder: {fileID: 0}
+  FoodToOrder: {fileID: 0}
   _dialogueBox: {fileID: 7625542106552616421}
   _emojis:
   - {fileID: 21300000, guid: c41be86d1a084634a9c6213f36100aa5, type: 3}
