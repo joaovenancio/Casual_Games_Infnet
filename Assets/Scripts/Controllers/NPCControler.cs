@@ -24,6 +24,7 @@ public class NPCControler : MonoBehaviour
 
     public bool HaveFood = false;
     public bool HavePatiance = true;
+    private bool _waitingForFood = false;
 
     private void Awake()
     {
@@ -74,7 +75,11 @@ public class NPCControler : MonoBehaviour
         else if (state == NPCState.WAITING_FOOD)
         {
             //Something -> maybe a timer
-            StartCoroutine(WaitForFood(2));
+            if (!_waitingForFood)
+            {
+                StartCoroutine(WaitForFood(2));
+
+            }
 
         }
         else if (state == NPCState.EATING)
@@ -85,6 +90,7 @@ public class NPCControler : MonoBehaviour
         {
             Debug.Log("VOU SAIR");
             SeatManager.Instance.Deseat(gameObject);
+            state = NPCState.PISSED;
         }
         else if (moveScript.moving)
         {
@@ -102,13 +108,13 @@ public class NPCControler : MonoBehaviour
     {
         //GameObject.Find("TEXTOTESTE").GetComponent<TMP_Text>().text = _isPlayerNear.ToString();
 
-        if (state == NPCState.ORDERING ) //&& _isPlayerNear)
+        if (state == NPCState.ORDERING && _isPlayerNear)
         {
             //GameObject.Find("TEXTOTESTE").GetComponent<TMP_Text>().text = "I took the order!";
             state = NPCState.WAITING_FOOD;
             //ShowEmoji(1);
 
-        } else if (state == NPCState.WAITING_FOOD && _isPlayerNear)
+        } else if (state == NPCState.WAITING_FOOD )//&& _isPlayerNear)
         {
             GameManager.Instance.PlayerDeliverFoodTo(this);
         }

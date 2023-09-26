@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: asasd
   m_EditorClassIdentifier: 
   customers:
-  - customerPrefrab: {fileID: 7303118409322115776, guid: 6639fc9e436cc514aab6940525cea57e, type: 3}
+  - customerPrefrab: {fileID: 6196390210323203034, guid: 6639fc9e436cc514aab6940525cea57e, type: 3}
     unlocked: 1
-  - customerPrefrab: {fileID: 7303118409322115776, guid: 6639fc9e436cc514aab6940525cea57e, type: 3}
+  - customerPrefrab: {fileID: 6196390210323203034, guid: 6639fc9e436cc514aab6940525cea57e, type: 3}
     unlocked: 1

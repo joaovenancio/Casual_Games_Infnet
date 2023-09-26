@@ -11,5 +11,6 @@ public enum NPCState
     WAITING_FOOD,
     EATING,
     PAYING,
-    LEAVING
+    LEAVING,
+    PISSED
 }

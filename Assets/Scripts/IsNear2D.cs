@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
@@ -30,7 +31,7 @@ public class IsNear2D : MonoBehaviour
     private bool _hasGameObjects;
     private bool _hasTags;
 
-    private void Awake()
+    private void Start()
     {
         SetupCollider();
         CheckArrays();
@@ -49,6 +50,14 @@ public class IsNear2D : MonoBehaviour
         } else
         {
             _hasGameObjects = true;
+
+            foreach (GameObject objectsToAnalize in GameObjectsToObeserveIfItsNear)
+            {
+                if (objectsToAnalize == null)
+                {
+                    _hasGameObjects = false;
+                }
+            }
         }
 
         if (TagsToObeserveIfItsNear == null ||
@@ -89,32 +98,42 @@ public class IsNear2D : MonoBehaviour
     //TODO: Implement a list of objects that the script should be observing, and, for every object, tell if there is a collision or not. Use a string key for the values. Could be something arbitrary like a string or the object per se. Returns a boolean
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        foreach (GameObject objectsToAnalize in GameObjectsToObeserveIfItsNear)
+        //GameObject.Find("TEXTOTESTE").GetComponent<TMP_Text>().text = TagsToObeserveIfItsNear[0];
+
+       
+        
+
+        foreach (string tagToAnalize in TagsToObeserveIfItsNear)
         {
-            if (objectsToAnalize.Equals(collision.gameObject))
+            if (collision.gameObject.CompareTag(tagToAnalize))
             {
+                //GameObject.Find("TEXTOTESTE").GetComponent<TMP_Text>().text = "OI";
                 IsNear = true;
                 if (FunctionsToCallOnTriggerEnter != null)
                     FunctionsToCallOnTriggerEnter.Invoke(collision);
             }
         }
 
-        foreach (string tagToAnalize in TagsToObeserveIfItsNear)
+        if (_hasGameObjects)
         {
-            if (tagToAnalize.Equals(collision.gameObject.tag))
+            foreach (GameObject objectsToAnalize in GameObjectsToObeserveIfItsNear)
             {
-                IsNear = true;
-                if (FunctionsToCallOnTriggerEnter != null)
-                    FunctionsToCallOnTriggerEnter.Invoke(collision);
+                if (collision.gameObject.CompareTag(objectsToAnalize.tag))
+                {
+                    //GameObject.Find("TEXTOTESTE").GetComponent<TMP_Text>().text = "OI";
+                    IsNear = true;
+                    if (FunctionsToCallOnTriggerEnter != null)
+                        FunctionsToCallOnTriggerEnter.Invoke(collision);
+                }
             }
         }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        foreach (GameObject objectsToAnalize in GameObjectsToObeserveIfItsNear)
+        foreach (string tagToAnalize in TagsToObeserveIfItsNear)
         {
-            if (objectsToAnalize.Equals(collision.gameObject))
+            if (collision.gameObject.CompareTag(tagToAnalize))
             {
                 IsNear = false;
                 if (FunctionsToCallOnTriggerExit != null)
@@ -122,39 +141,42 @@ public class IsNear2D : MonoBehaviour
             }
         }
 
-        foreach (string tagToAnalize in TagsToObeserveIfItsNear)
+        if (_hasGameObjects)
         {
-            if (tagToAnalize.Equals(collision.gameObject.tag))
+            foreach (GameObject objectsToAnalize in GameObjectsToObeserveIfItsNear)
             {
-                IsNear = false;
-                if (FunctionsToCallOnTriggerExit != null)
-                    FunctionsToCallOnTriggerExit.Invoke(collision);
+                if (collision.gameObject.CompareTag(objectsToAnalize.tag))
+                {
+                    IsNear = false;
+                    if (FunctionsToCallOnTriggerExit != null)
+                        FunctionsToCallOnTriggerExit.Invoke(collision);
+                }
             }
         }
     }
 
-    private void OnTriggerStay2D(Collider2D collision)
-    {
-        foreach (GameObject objectsToAnalize in GameObjectsToObeserveIfItsNear)
-        {
-            if (objectsToAnalize.Equals(collision.gameObject))
-            {
-                IsNear = false;
-                if (FunctionsToCallOnTriggerStay != null)
-                    FunctionsToCallOnTriggerStay.Invoke(collision);
-            }
-        }
+    //private void OnTriggerStay2D(Collider2D collision)
+    //{
+    //    foreach (GameObject objectsToAnalize in GameObjectsToObeserveIfItsNear)
+    //    {
+    //        if (objectsToAnalize.Equals(collision.gameObject))
+    //        {
+    //            IsNear = true;
+    //            if (FunctionsToCallOnTriggerStay != null)
+    //                FunctionsToCallOnTriggerStay.Invoke(collision);
+    //        }
+    //    }
 
-        foreach (string tagToAnalize in TagsToObeserveIfItsNear)
-        {
-            if (tagToAnalize.Equals(collision.gameObject.tag))
-            {
-                IsNear = false;
-                if (FunctionsToCallOnTriggerStay != null)
-                    FunctionsToCallOnTriggerStay.Invoke(collision);
-            }
-        }
-    }
+    //    foreach (string tagToAnalize in TagsToObeserveIfItsNear)
+    //    {
+    //        if (tagToAnalize.Equals(collision.gameObject.tag))
+    //        {
+    //            IsNear = true;
+    //            if (FunctionsToCallOnTriggerStay != null)
+    //                FunctionsToCallOnTriggerStay.Invoke(collision);
+    //        }
+    //    }
+    //}
 
     //Custom classes:
     [System.Serializable]
