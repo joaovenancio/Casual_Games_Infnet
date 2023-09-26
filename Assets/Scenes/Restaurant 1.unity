@@ -1470,7 +1470,7 @@ GameObject:
   - component: {fileID: 528899333}
   m_Layer: 0
   m_Name: Content
-  m_TagString: Untagged
+  m_TagString: UI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2969,7 +2969,7 @@ GameObject:
   - component: {fileID: 852871507}
   m_Layer: 0
   m_Name: ScrollArea
-  m_TagString: Untagged
+  m_TagString: UI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3189,7 +3189,7 @@ GameObject:
   - component: {fileID: 1049722044}
   m_Layer: 0
   m_Name: Make Food Pannel
-  m_TagString: Untagged
+  m_TagString: UI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3605,7 +3605,7 @@ GameObject:
   - component: {fileID: 1433749904}
   m_Layer: 0
   m_Name: Exit
-  m_TagString: Untagged
+  m_TagString: UI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

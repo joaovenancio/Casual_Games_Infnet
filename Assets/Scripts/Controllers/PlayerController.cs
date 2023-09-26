@@ -3,6 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
+using UnityEngine.UI;
 using static UnityEngine.InputSystem.InputAction;
 
 public class PlayerController : MonoBehaviour
@@ -28,9 +31,40 @@ public class PlayerController : MonoBehaviour
         
     }
 
+    PointerEventData pointerEventData;
+    List<RaycastResult> raycastResultsList;
+
     public void MovePlayer(CallbackContext context) {
         //Debug.Log("Position: " + Camera.main.ScreenToWorldPoint(context.ReadValue<Vector2>()));
+
+        //Vector2 worldPoint = _mainCamera.ScreenToWorldPoint(context.ReadValue<Vector2>());
+
+        pointerEventData = new PointerEventData(EventSystem.current);
+
+
+        pointerEventData.position = Touchscreen.current.position.ReadValue();
+        raycastResultsList = new List<RaycastResult>();
+
+        // essa parada aqui que faz a magica
+        EventSystem.current.RaycastAll(pointerEventData, raycastResultsList);
+
+
+        foreach (RaycastResult hit in raycastResultsList)
+        {
+            Debug.Log(hit.gameObject.tag);
+
+            if (raycastResultsList.Count <= 0)
+                continue;
+
+            if (hit.gameObject.CompareTag("UI"))
+            {
+                return;
+            }
+        }
+
         _moveScript.MoveTo(_mainCamera.ScreenToWorldPoint(context.ReadValue<Vector2>()));
+
+
     }
 
     public bool AddFood(GameObject food)
