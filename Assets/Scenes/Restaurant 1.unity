@@ -1216,7 +1216,7 @@ GameObject:
   - component: {fileID: 461372098}
   m_Layer: 0
   m_Name: UI
-  m_TagString: Untagged
+  m_TagString: UI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5648,12 +5648,24 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7464110750900801007, guid: 9c59b8c6c1e6b0547aad79c2cc0397a0, type: 3}
+      propertyPath: _audios.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7464110750900801007, guid: 9c59b8c6c1e6b0547aad79c2cc0397a0, type: 3}
       propertyPath: _globalAudioSource
       value: 
       objectReference: {fileID: 4270070}
     - target: {fileID: 7464110750900801007, guid: 9c59b8c6c1e6b0547aad79c2cc0397a0, type: 3}
       propertyPath: _globalAudioVolume
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7464110750900801007, guid: 9c59b8c6c1e6b0547aad79c2cc0397a0, type: 3}
+      propertyPath: _audios.Array.data[3].AudioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: e5144c2135f2a7245a8d003fd78e0943, type: 3}
+    - target: {fileID: 7464110750900801007, guid: 9c59b8c6c1e6b0547aad79c2cc0397a0, type: 3}
+      propertyPath: _audios.Array.data[3].AudioName
+      value: right
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

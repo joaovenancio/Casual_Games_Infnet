@@ -123,16 +123,25 @@ public class PlayerController : MonoBehaviour
 
         if (foodHolder != null)
         {
-            Debug.Log("Thank you!!!");
+            if (npc.HavePatiance)
+            {
+                Debug.Log("Thank you!!!");
 
-            npc.state = NPCState.EATING;
+                npc.HaveFood = true;
+                npc.state = NPCState.EATING;
 
-            GameManager.Instance.RecieveMoney(((int)foodHolder.FoodPrefrab.GetComponent<FoodController>().Price));
-            foodHolder.FoodPrefrab = null;
+                SoundManager.Instance.Play("right", false, npc.gameObject);
 
-            foodHolder.GetComponent<ChangeSprite>().DefaultSprite();
+                GameManager.Instance.RecieveMoney(((int)foodHolder.FoodPrefrab.GetComponent<FoodController>().Price));
+                foodHolder.FoodPrefrab = null;
 
-            return true;
+                foodHolder.GetComponent<ChangeSprite>().DefaultSprite();
+
+                return true;
+            }
+
+            return false;
+            
         } else
         {
             Debug.Log("I dont have the food");

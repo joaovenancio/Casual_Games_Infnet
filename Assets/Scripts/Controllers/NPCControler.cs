@@ -22,6 +22,9 @@ public class NPCControler : MonoBehaviour
     private bool _showedEmoji = false;
     private bool _chosedFood = false;
 
+    public bool HaveFood = false;
+    public bool HavePatiance = true;
+
     private void Awake()
     {
         SetupVariables();
@@ -71,7 +74,10 @@ public class NPCControler : MonoBehaviour
         else if (state == NPCState.WAITING_FOOD)
         {
             //Something -> maybe a timer
-        }else if (state == NPCState.EATING)
+            StartCoroutine(WaitForFood(2));
+
+        }
+        else if (state == NPCState.EATING)
         {
             //Something -> maybe a timer
             state = NPCState.LEAVING;
@@ -102,7 +108,7 @@ public class NPCControler : MonoBehaviour
             state = NPCState.WAITING_FOOD;
             //ShowEmoji(1);
 
-        } else if (state == NPCState.WAITING_FOOD )//&& _isPlayerNear)
+        } else if (state == NPCState.WAITING_FOOD && _isPlayerNear)
         {
             GameManager.Instance.PlayerDeliverFoodTo(this);
         }
@@ -190,6 +196,25 @@ public class NPCControler : MonoBehaviour
 
         ShowDialogueFoodToOrder();
         state = NPCState.ORDERING;
+
+        //After we have waited 5 seconds print the time again.
+        //Debug.Log("Finished Coroutine at timestamp : " + Time.time);
+    }
+
+
+    IEnumerator WaitForFood(int time)
+    {
+        //Print the time of when the function is first called.
+        //Debug.Log("Started Coroutine at timestamp : " + Time.time);
+        //yield on a new YieldInstruction that waits for 5 seconds.
+        yield return new WaitForSeconds(time);
+;
+        HavePatiance = false;
+        if (!HaveFood)
+        {
+            state = NPCState.LEAVING;
+
+        }
 
         //After we have waited 5 seconds print the time again.
         //Debug.Log("Finished Coroutine at timestamp : " + Time.time);

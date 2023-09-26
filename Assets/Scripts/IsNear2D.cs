@@ -22,6 +22,7 @@ public class IsNear2D : MonoBehaviour
     [Space]
     public Collision2DEvent FunctionsToCallOnTriggerEnter;
     public Collision2DEvent FunctionsToCallOnTriggerExit;
+    public Collision2DEvent FunctionsToCallOnTriggerStay;
     [Header("Optional")]
     public bool DisableWarnings = false;
 
@@ -128,6 +129,29 @@ public class IsNear2D : MonoBehaviour
                 IsNear = false;
                 if (FunctionsToCallOnTriggerExit != null)
                     FunctionsToCallOnTriggerExit.Invoke(collision);
+            }
+        }
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        foreach (GameObject objectsToAnalize in GameObjectsToObeserveIfItsNear)
+        {
+            if (objectsToAnalize.Equals(collision.gameObject))
+            {
+                IsNear = false;
+                if (FunctionsToCallOnTriggerStay != null)
+                    FunctionsToCallOnTriggerStay.Invoke(collision);
+            }
+        }
+
+        foreach (string tagToAnalize in TagsToObeserveIfItsNear)
+        {
+            if (tagToAnalize.Equals(collision.gameObject.tag))
+            {
+                IsNear = false;
+                if (FunctionsToCallOnTriggerStay != null)
+                    FunctionsToCallOnTriggerStay.Invoke(collision);
             }
         }
     }

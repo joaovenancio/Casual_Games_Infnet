@@ -8,7 +8,7 @@ public class SoundManager : MonoBehaviour
 {
     [Header("Variables")]
     [HideInInspector]
-    [SerializeField]private float _globalAudioVolume = 0.3f;
+    [SerializeField]private float _globalAudioVolume = 0.125f;
     public float GlobalAudioVolume {
         get { return this._globalAudioVolume; }
         set 
@@ -60,6 +60,8 @@ public class SoundManager : MonoBehaviour
 
             if (isSoundtrack)
             {
+                GlobalAudioVolume = 0.2f;
+
                 _globalAudioSource.volume = GlobalAudioVolume;
                 _globalAudioSource.clip = audioClip;
                 _globalAudioSource.Play();
