@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
@@ -26,6 +27,8 @@ public class DetectTouch : MonoBehaviour
 
     public void Detect(CallbackContext context)
     {
+        //GameObject.Find("TEXTOTESTE").GetComponent<TMP_Text>().text = "OI";
+
         Vector2 worldPoint = Camera.main.ScreenToWorldPoint(context.ReadValue<Vector2>());
 
         ContactFilter2D filter2D = new ContactFilter2D().NoFilter();
@@ -42,7 +45,9 @@ public class DetectTouch : MonoBehaviour
 
                 //runWhenTouched();
                 RunWhenTouched.Invoke();
+                //GameObject.Find("TEXTOTESTE").GetComponent<TMP_Text>().text = RunWhenTouched.GetPersistentMethodName(0);
                 //Debug.Log("COLISÃO COLISÃO COLISÃO COLISÃO COLISÃO COLISÃO");
+                
             }
         }
 

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class NPCControler : MonoBehaviour
@@ -93,13 +94,15 @@ public class NPCControler : MonoBehaviour
 
     public void TakeOrder()
     {
-        if (state == NPCState.ORDERING && _isPlayerNear)
-        {
-            Debug.Log("I took the order!");
-            state = NPCState.WAITING_FOOD;
-            ShowEmoji(1);
+        //GameObject.Find("TEXTOTESTE").GetComponent<TMP_Text>().text = _isPlayerNear.ToString();
 
-        } else if (state == NPCState.WAITING_FOOD && _isPlayerNear)
+        if (state == NPCState.ORDERING ) //&& _isPlayerNear)
+        {
+            //GameObject.Find("TEXTOTESTE").GetComponent<TMP_Text>().text = "I took the order!";
+            state = NPCState.WAITING_FOOD;
+            //ShowEmoji(1);
+
+        } else if (state == NPCState.WAITING_FOOD )//&& _isPlayerNear)
         {
             GameManager.Instance.PlayerDeliverFoodTo(this);
         }
