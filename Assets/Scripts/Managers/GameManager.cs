@@ -10,8 +10,6 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    private AdsController _AdsController;
-
     [Header("Variables")]
     [SerializeField] private GameState _gameState;
     [SerializeField] private int _playerMoney;
@@ -51,10 +49,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //_AdsController = FindObjectOfType(typeof(AdsController)) as AdsController;
         SetupByScene();
-
-        //StartCoroutine(StartSkippableVideo());
         
         //DialogueManager.Instance.StartDialogue();
     }
@@ -282,10 +277,5 @@ public class GameManager : MonoBehaviour
 
         UIManager.Instance.PopulateFoodContainer(foodList.ToArray());
     }
-
-    /*IEnumerator StartSkippableVideo()
-    {
-        yield return new WaitForSeconds(15);
-        _AdsController.LoadSkippableVideo();
-    }*/
+    
 }
